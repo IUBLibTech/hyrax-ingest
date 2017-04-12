@@ -1,0 +1,134 @@
+# Configures JSON-LD conversion from IuMetadata::Mods/Marc attributes
+# FIXME: fix unit_of_origin configuration here
+#
+---
+"@context":
+  id: "@id"
+  dc: http://purl.org/dc/elements/1.1/
+  dcterms: http://purl.org/dc/terms/
+  iiif: http://iiif.io/api/presentation/2#
+  fedora: info:fedora/fedora-system:def/model#
+  loc: http://id.loc.gov/vocabulary/identifiers/
+  nfo: http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#
+  mods: http://www.loc.gov/mods/rdf/v1#
+  pulterms: http://library.princeton.edu/terms/
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  skos: http://www.w3.org/2004/02/skos/core#
+  ebucore: http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#
+  premis: http://id.loc.gov/ontologies/premis#
+  premisrdf: http://www.loc.gov/premis/rdf/v1#
+  
+  # Work data model properties
+  
+  title:
+    "@id": dcterms:title
+  identifier:
+    "@id": ebucore:identifier
+  unit_of_origin:
+    "@id": bf:heldBy
+  digitized_by_entity:
+    "@id": ebucore:hasCreator
+  digitized_by_staff:
+    "@id": ebucore:hasMetadataAttributor
+  extraction_workstation:
+    "@id": skos:note
+  tape_playback_calibration_used:
+    "@id": skos:note
+  digitization_comments:
+    "@id": ebucore:comments
+  original_identifier:
+    "@id": ebucore:hasSource
+  original_format:
+    "@id": dc:format
+  recording_standard:
+    "@id": ebucore:hasStandard
+  tape_stock_brand:
+    "@id": ebucore:medium
+  image_format:
+    "@id": ebucore:aspectRatio
+  definition:
+    "@id": ebucore:hasVideoFormat
+  original_media_damage:
+    "@id": skos:historyNote
+  original_media_preservation_problem:
+    "@id": skos:scopeNote
+  qc_status:
+    "@id": skos:changeNote
+  manual_qc_check:
+    "@id": skos:changeNote
+  encoder_manufacturer:
+    "@id": premisrdf:hasHardwareOtherInformation
+  encoder_model:
+    "@id": premisrdf:hasHardwareOtherInformation
+  encoder_serial_number:
+    "@id": premisrdf:hasHardwareOtherInformation
+  ad_manufacturer:
+    "@id": premisrdf:hasHardwareName
+  ad_model:
+    "@id": premisrdf:hasHardwareName
+  ad_serial_number:
+    "@id": premisrdf:hasHardwareName
+  speed_used:
+    "@id": ebucore:playbackSpeed
+  tbc_manufacturer:
+    "@id": premisrdf:hasHardwareName
+  tbc_model:
+    "@id": premisrdf:hasHardwareName
+  tbc_serial_number:
+    "@id": premisrdf:hasHardwareName
+  tape_thickness:
+    "@id": dcterms:description
+  total_parts:
+    "@id": ebucore:partTotalNumber
+    
+  # Fileset data model properties
+    
+  date_generated:
+    "@id": ebucore:dateCreated
+  file_format:
+    "@id": premisrdf:hasFormatName
+  file_format_long_name:
+    "@id": ebucore:hasFileFormat
+  codec_type:
+    "@id": ebucore:hasMedium
+  codec_name:
+    "@id": ebucore:hasCodec
+  codec_long_name:
+    "@id": ebucore:codecName
+  format_duration:
+    "@id": ebucore:duration
+  bit_rate:
+    "@id": ebucore:bitRate
+  file_name:
+    "@id": ebucore:filename
+  label:
+    "@id": fedora:downloadFilename
+  filename:
+    "@id": ebucore:filename
+  format_file_size:
+    "@id": ebucore:fileSize
+  file_size:
+    "@id": ebucore:fileSize
+  identifier:
+    "@id": ebucore:identifier
+  unit_of_origin:
+    "@id": ebucore:comments
+  unit_of_origin_statement:
+    "@id": ebucore:comments
+  alternative_unit_of_origin_statement:
+    "@id": ebucore:comments
+  part:
+    "@id": ebucore:partNumber
+  format_sample_rate:
+    "@id": ebucore:sampleRate
+  video_width:
+    "@id": ebucore:width
+  width:
+    "@id": ebucore:width
+  video_height:
+    "@id": ebucore:height
+  height:
+    "@id": ebucore:height
+  md5_checksum:
+    "@id": nfo:hashValue
