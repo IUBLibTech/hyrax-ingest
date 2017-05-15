@@ -1,4 +1,5 @@
 require "hyrax/ingest/version"
+require 'hyrax'
 
 module Hyrax
   module Ingest
