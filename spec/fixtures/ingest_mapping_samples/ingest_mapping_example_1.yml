@@ -1,0 +1,12 @@
+---
+mapping:
+    # From an XML file matching a regex,
+    # using xpath to retrieve the value.
+    - from:
+        XMLFile:
+            filename: /MDPI.*pres_ffprobe\.xml/
+            xpath: title
+      to:
+        ActiveFedoraModel:
+            type: Work
+            rdf_predicate: 'http://example.org#title'

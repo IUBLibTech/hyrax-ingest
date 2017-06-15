@@ -1,0 +1,146 @@
+<object xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <basics>
+        <format>Betacam</format>
+        <files>1</files>
+      </basics>
+      <assignment>
+        <unit>B-IULMIA</unit>
+        <group_key>GR00107109</group_key>
+        <picklist>IULMIA Betacam SP</picklist>
+        <bin>40000000005316</bin>
+        <batch>M-0004-BSP</batch>
+        <spreadsheet>IULMIA-shipment-to-MDPI_2015-09-21 - processed for import.csv</spreadsheet>
+      </assignment>
+      <details>
+        <id>139420</id>
+        <title>"Brain" Cam 1 Tape 1</title>
+        <title_control_number />
+        <home_location />
+        <call_number>30000149090791|</call_number>
+        <iucat_barcode>30000149090791</iucat_barcode>
+        <format>Betacam</format>
+        <collection_identifier />
+        <mdpi_barcode>40000000542243</mdpi_barcode>
+        <has_ephemera>false</has_ephemera>
+        <created_at>2015-10-12T09:23:28-04:00</created_at>
+        <updated_at>2016-02-19T11:58:01-05:00</updated_at>
+        <author>Creator: |Contributor: |Publisher: AIT</author>
+        <catalog_key />
+        <collection_name />
+        <generation>Unknown</generation>
+        <oclc_number />
+        <other_copies>false</other_copies>
+        <year>1993</year>
+        <group_position>1</group_position>
+        <ephemera_returned>false</ephemera_returned>
+        <staging_requested>false</staging_requested>
+        <staged>false</staged>
+        <digital_start>2016-01-19T00:59:17-05:00</digital_start>
+        <staging_request_timestamp xsi:nil="true" />
+        <audio>false</audio>
+        <video>true</video>
+        <memnon_qc_completed>true</memnon_qc_completed>
+        <billed>true</billed>
+        <date_billed>2016-02-19T11:47:19-05:00</date_billed>
+        <spread_sheet_filename>DELIVERY 14-0005 - BSP - 01_31_2016.xlsx</spread_sheet_filename>
+        <group_total>1</group_total>
+        <carrier_stream_index>GR00107109_1_1</carrier_stream_index>
+        <current_workflow_status>Binned</current_workflow_status>
+        <workflow_statuses>
+          <workflow_status>
+            <id>286002</id>
+            <created_at>2015-10-12T09:23:28-04:00</created_at>
+            <updated_at>2015-10-12T09:23:28-04:00</updated_at>
+            <user>pfeaster</user>
+            <has_ephemera>false</has_ephemera>
+            <ephemera_returned>false</ephemera_returned>
+            <ephemera_okay>false</ephemera_okay>
+            <name>Unassigned</name>
+            <sequence_index>1</sequence_index>
+            <workflow_note />
+          </workflow_status>
+          <workflow_status>
+            <id>286003</id>
+            <created_at>2015-10-12T09:23:28-04:00</created_at>
+            <updated_at>2015-10-12T09:23:28-04:00</updated_at>
+            <user>pfeaster</user>
+            <has_ephemera>false</has_ephemera>
+            <ephemera_returned>false</ephemera_returned>
+            <ephemera_okay>false</ephemera_okay>
+            <name>On Pick List</name>
+            <sequence_index>2</sequence_index>
+            <workflow_note />
+          </workflow_status>
+          <workflow_status>
+            <id>288874</id>
+            <created_at>2015-10-14T14:17:03-04:00</created_at>
+            <updated_at>2015-10-14T14:17:03-04:00</updated_at>
+            <user>hpangle</user>
+            <has_ephemera>false</has_ephemera>
+            <ephemera_returned>false</ephemera_returned>
+            <ephemera_okay>false</ephemera_okay>
+            <name>Binned</name>
+            <sequence_index>4</sequence_index>
+            <workflow_note />
+          </workflow_status>
+        </workflow_statuses>
+        <notes>
+          <note>
+            <id>41535</id>
+            <body>Notes on case: HTT</body>
+            <user>pfeaster</user>
+            <created_at>2015-10-12T09:23:28-04:00</created_at>
+            <updated_at>2015-10-12T09:23:28-04:00</updated_at>
+            <export>false</export>
+          </note>
+          <note>
+            <id>41536</id>
+            <body>Notes on box:</body>
+            <user>pfeaster</user>
+            <created_at>2015-10-12T09:23:28-04:00</created_at>
+            <updated_at>2015-10-12T09:23:28-04:00</updated_at>
+            <export>false</export>
+          </note>
+          <note>
+            <id>41537</id>
+            <body>Audio Channel:</body>
+            <user>pfeaster</user>
+            <created_at>2015-10-12T09:23:28-04:00</created_at>
+            <updated_at>2015-10-12T09:23:28-04:00</updated_at>
+            <export>false</export>
+          </note>
+          <note>
+            <id>41538</id>
+            <body>Condition: Minor Stepping</body>
+            <user>pfeaster</user>
+            <created_at>2015-10-12T09:23:28-04:00</created_at>
+            <updated_at>2015-10-12T09:23:28-04:00</updated_at>
+            <export>false</export>
+          </note>
+        </notes>
+        <condition_statuses />
+      </details>
+      <technical_metadata>
+        <format>Betacam</format>
+        <files>1</files>
+        <format_version>SP</format_version>
+        <pack_deformation>None</pack_deformation>
+        <cassette_size>small</cassette_size>
+        <recording_standard>NTSC</recording_standard>
+        <format_duration>30</format_duration>
+        <tape_stock_brand>3M </tape_stock_brand>
+        <image_format>4:3</image_format>
+        <preservation_problems />
+      </technical_metadata>
+      <digital_provenance>
+        <digitizing_entity>Memnon Archiving Services Inc</digitizing_entity>
+        <comments />
+        <cleaning_date xsi:nil="true" />
+        <baking xsi:nil="true" />
+        <repaired>false</repaired>
+        <cleaning_comment />
+        <digitization_time />
+        <digital_files>
+        </digital_files>
+      </digital_provenance>
+    </object>

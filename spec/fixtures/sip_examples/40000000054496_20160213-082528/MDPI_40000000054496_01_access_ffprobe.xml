@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ffprobe>
+    <streams>
+        <stream index="0" codec_name="aac" codec_long_name="AAC (Advanced Audio Coding)" profile="LC" codec_type="audio" codec_time_base="1/44100" codec_tag_string="mp4a" codec_tag="0x6134706d" sample_fmt="fltp" sample_rate="44100" channels="2" channel_layout="stereo" bits_per_sample="0" r_frame_rate="0/0" avg_frame_rate="0/0" time_base="1/44100" start_pts="-2048" start_time="-0.046440" duration_ts="335448064" duration="7606.532063" bit_rate="192000" nb_frames="327586">
+            <disposition default="1" dub="0" original="0" comment="0" lyrics="0" karaoke="0" forced="0" hearing_impaired="0" visual_impaired="0" clean_effects="0" attached_pic="0"/>
+            <tag key="language" value="und"/>
+            <tag key="handler_name" value="SoundHandler"/>
+        </stream>
+    </streams>
+
+    <format filename="/srv/scratch/transcoder_workspace_xcode-04_prod/MDPI_40000000054496.downloading/data/MDPI_40000000054496_01_access.mp4" nb_streams="1" nb_programs="0" format_name="mov,mp4,m4a,3gp,3g2,mj2" format_long_name="QuickTime / MOV" start_time="-0.046440" duration="7606.533000" size="183868943" bit_rate="193380" probe_score="100">
+        <tag key="major_brand" value="isom"/>
+        <tag key="minor_version" value="512"/>
+        <tag key="compatible_brands" value="isomiso2mp41"/>
+        <tag key="title" value="PROGRAM 001995 001996 NO 000642"/>
+        <tag key="date" value="2015-12-04"/>
+        <tag key="encoder" value="Lavf56.25.101"/>
+        <tag key="comment" value="Indiana University-Bloomington. William and Gayle Cook Music Library. DAT .I3972 96-3-21. File use: Production Master. MDPI_40000000054496_01_prod"/>
+    </format>
+</ffprobe>

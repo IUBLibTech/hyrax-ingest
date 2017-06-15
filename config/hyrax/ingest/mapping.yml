@@ -1,0 +1,20 @@
+---
+mapping:
+    - from:
+        XMLFile:
+            filename: '/MDPI_.*_pres_ffprobe\.xml/'
+            xpath: 'xpath/to/title'
+    - to:
+        ActiveFedoraModel:
+            type: Work
+            instance_name: original_file
+            rdf_property: 'http://example.org#title'
+    - from:
+        XMLFile:
+            filename: 'MDPI_40000000054496.xml'
+            xpath: 'xpath/to/description'
+      to:
+        ActiveFedoraModel:
+            type: Work
+            instance_name: original_file
+            rdf_property: dc:description

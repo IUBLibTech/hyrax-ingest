@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ffprobe>
+    <streams>
+        <stream index="0" codec_name="pcm_s16le" codec_long_name="PCM signed 16-bit little-endian" codec_type="audio" codec_time_base="1/44100" codec_tag_string="[1][0][0][0]" codec_tag="0x0001" sample_fmt="s16" sample_rate="44100" channels="2" bits_per_sample="16" r_frame_rate="0/0" avg_frame_rate="0/0" time_base="1/44100" duration_ts="335446016" duration="7606.485624" bit_rate="1411200">
+            <disposition default="0" dub="0" original="0" comment="0" lyrics="0" karaoke="0" forced="0" hearing_impaired="0" visual_impaired="0" clean_effects="0" attached_pic="0"/>
+        </stream>
+    </streams>
+
+    <format filename="/srv/scratch/transcoder_workspace_xcode-04_prod/MDPI_40000000054496.downloading/data/MDPI_40000000054496_01_prod.wav" nb_streams="1" nb_programs="0" format_name="wav" format_long_name="WAV / WAVE (Waveform Audio)" duration="7606.485624" size="1352884274" bit_rate="1422874" probe_score="99">
+        <tag key="IARL" value="Indiana University-Bloomington. William and Gayle Cook Music Library."/>
+        <tag key="originator_reference" value="MDPI_40000000054496_01_prod"/>
+        <tag key="title" value="PROGRAM 001995 001996 NO 000642"/>
+        <tag key="comment" value="Indiana University-Bloomington. William and Gayle Cook Music Library. DAT .I3972 96-3-21. File use: Production Master. MDPI_40000000054496_01_prod"/>
+        <tag key="encoded_by" value="Memnon Archiving Services Inc."/>
+        <tag key="date" value="2015-12-04"/>
+        <tag key="creation_time" value="02:15:02"/>
+        <tag key="time_reference" value="0"/>
+        <tag key="coding_history" value="A=PCM,F=48000,T=Sony PCM-7040;SN51362
+A=PCM,F=44100,W=16,M=stereo,T=Lynx AES16e 01+02;2.22;BL-UITS-DCWS003;D/D
+A=PCM, F=44100, W=16, M=stereo, T=NoaMediaButler Lib;1.0.0.41;D/D
+
+"/>
+    </format>
+</ffprobe>

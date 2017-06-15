@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IU xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Carrier xsi:type="DATCarrier" type="DAT">
+    <Identifier>DAT .I3972 96-3-21</Identifier>
+    <Barcode>40000000054496</Barcode>
+    <PhysicalCondition />
+    <Parts>
+      <DigitizingEntity>Memnon Archiving Services Inc</DigitizingEntity>
+      <Part Side="1">
+        <Ingest xsi:type="DatIngest">
+          <Date>2015-12-03</Date>
+          <DigitStatus>OK</DigitStatus>
+          <Created_by>comadder</Created_by>
+          <Player_serial_number>51362</Player_serial_number>
+          <Player_manufacturer>Sony</Player_manufacturer>
+          <Player_model>PCM-7040</Player_model>
+          <Extraction_workstation>NoaML-01</Extraction_workstation>
+          <BLER>
+            <Channel>
+              <ID>1</ID>
+              <Average>1.36</Average>
+              <Sum>8932</Sum>
+              <StandardDeviation>4.55</StandardDeviation>
+            </Channel>
+            <Channel>
+              <ID>2</ID>
+              <Average>1.84</Average>
+              <Sum>12068</Sum>
+              <StandardDeviation>4.4</StandardDeviation>
+            </Channel>
+          </BLER>
+        </Ingest>
+        <ManualCheck>No</ManualCheck>
+        <QCStatus>OK</QCStatus>
+        <Files>
+          <File>
+            <FileName>MDPI_40000000054496_01_pres.wav</FileName>
+            <CheckSum>A0F9E4C05B1307788734229C3023F191</CheckSum>
+          </File>
+          <File>
+            <FileName>MDPI_40000000054496_01_prod.wav</FileName>
+            <CheckSum>7892355550C1105C0144D95EC7D3820F</CheckSum>
+          </File>
+          <File>
+            <FileName>MDPI_40000000054496_01_access.mp4</FileName>
+            <CheckSum>F4C3088D835D35D8741551CF4E8977F0</CheckSum>
+          </File>
+          <File>
+            <FileName>MDPI_40000000054496_01_pres.eqm</FileName>
+            <CheckSum />
+          </File>
+          <File>
+            <FileName>MDPI_40000000054496_01_pres.wmf</FileName>
+            <CheckSum />
+          </File>
+        </Files>
+      </Part>
+    </Parts>
+    <Configuration xsi:type="ConfigurationDat">
+      <SampleRate>44.1k</SampleRate>
+      <CassetteLength>124</CassetteLength>
+    </Configuration>
+  </Carrier>
+</IU>

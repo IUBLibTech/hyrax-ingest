@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.loc.gov/mods/v3" version="3.5" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd">
+  <titleInfo>
+    <title>"Brain" Cam 1 Tape 1</title>
+  </titleInfo>
+  <name type="personal" usage="primary">
+    <namePart>Creator: |Contributor: |Publisher: AIT</namePart>
+  </name>
+  <originInfo>
+    <dateIssued>1993</dateIssued>
+  </originInfo>
+  <typeOfResource>moving image</typeOfResource>
+  <physicalDescription>
+    <form authority="gmd">videorecording</form>
+    <form authority="marcsmd">videocassette</form>
+  </physicalDescription>
+  <note displayLabel="system details">Betacam</note>
+  <identifier type="local" displayLabel="Unit">B-IULMIA</identifier>
+  <identifier type="local" displayLabel="Call Number">30000149090791|</identifier>
+  <identifier type="local" displayLabel="Collection Identifier"/>
+  <identifier type="local" displayLabel="MDPI Barcode">40000000542243</identifier>
+  <recordInfo>
+    <recordCreationDate encoding="iso8601">2015-10-12T09:23:28-04:00</recordCreationDate>
+    <recordChangeDate encoding="iso8601">2016-02-19T11:58:01-05:00</recordChangeDate>
+    <recordIdentifier source="MDPI">40000000542243</recordIdentifier>
+  </recordInfo>
+</mods>
