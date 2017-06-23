@@ -4,7 +4,7 @@ mapping:
         XMLFile:
             filename: '/MDPI_.*_pres_ffprobe\.xml/'
             xpath: 'xpath/to/title'
-    - to:
+      to:
         ActiveFedoraModel:
             type: Work
             instance_name: original_file

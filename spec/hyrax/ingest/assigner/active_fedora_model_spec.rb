@@ -7,6 +7,9 @@ RSpec.describe Hyrax::Ingest::Assigner::ActiveFedoraModel do
     class TestActiveFedoraModel < ActiveFedora::Base
       property :foo, predicate: ::RDF::URI.new('http://example.org#foo')
     end
+
+    # Set up TestActiveFedoraModel#save! to be a no-op.
+    allow_any_instance_of(TestActiveFedoraModel).to receive(:save!).and_return(nil)
   end
 
   describe '.instances' do
@@ -64,6 +67,24 @@ RSpec.describe Hyrax::Ingest::Assigner::ActiveFedoraModel do
       expect(subject.af_model.foo).to eq ["some value"]
     end
   end
+
+  describe '#save!' do
+    let(:options) { { type: "TestActiveFedoraModel", instance_name: 'foo', rdf_predicate: "bar"} }
+    subject { described_class.new(options) }
+    let(:test_af_model_instance) { instance_double(TestActiveFedoraModel) }
+
+    before do
+      # Ensure that the ActiveFedoraModel assigner is using an object that we
+      # can set expectations on.
+      allow(described_class).to receive(:fetch_or_create_instance).with(type: "TestActiveFedoraModel", instance_name: "foo").and_return(test_af_model_instance)
+    end
+
+    it 'calls #save! on the ActiveFedora model' do
+      expect(test_af_model_instance).to receive(:save!).exactly(1).times
+      subject.save!
+    end
+  end
+
 
   # Undefined test classes
   after { Object.send(:remove_const, :TestActiveFedoraModel) }

@@ -17,6 +17,10 @@ module Hyrax
           af_model.send(af_model_property_from_rdf_predicates).set(value)
         end
 
+        def save!
+          af_model.save!
+        end
+
         private
 
           # Performs a lookup of property name by RDF predicate.

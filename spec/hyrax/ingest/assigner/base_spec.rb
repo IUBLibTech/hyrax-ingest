@@ -6,4 +6,8 @@ RSpec.describe Hyrax::Ingest::Assigner::Base do
   it 'responds to #assign' do
     expect(subject).to respond_to :assign
   end
+
+  it 'responds to #save!' do
+    expect(subject).to respond_to :save!
+  end
 end

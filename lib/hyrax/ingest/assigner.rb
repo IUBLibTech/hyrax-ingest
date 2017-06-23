@@ -5,7 +5,7 @@ module Hyrax
     module Assigner
       class << self
 
-        # @return Set The set of all assigner classes.
+        # @return [Set] The set of all assigner classes.
         def all_classes
           @all_classes ||= Set.new.tap do |all_classes|
             all_classes << Hyrax::Ingest::Assigner::ActiveFedoraModel

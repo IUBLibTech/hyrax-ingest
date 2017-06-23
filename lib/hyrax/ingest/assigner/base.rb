@@ -12,6 +12,10 @@ module Hyrax
         def assign(value: nil)
           # no-op; intended to be overwritten
         end
+
+        def save!
+          # no-op; intended to be overwritten
+        end
       end
     end
   end
