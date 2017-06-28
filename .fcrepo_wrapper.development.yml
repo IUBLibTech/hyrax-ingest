@@ -1,0 +1,6 @@
+# Default configuration for fcrepo_wrapper in development environment
+port: 8984
+enable_jms: false
+version: 4.7.0
+fcrepo_home_dir: tmp/fcrepo4-development-data
+verbose: true

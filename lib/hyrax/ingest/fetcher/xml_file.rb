@@ -7,9 +7,12 @@ module Hyrax
       class XMLFile < Base
         attr_reader :filename, :xpath
 
-        def initialize(filename:, xpath:)
-          @filename = filename
-          @xpath = xpath
+        def initialize(sip, options={})
+          raise ArgumentError, "Required option :filename is missing" unless options.key?(:filename)
+          raise ArgumentError, "Required option :xpath is missing" unless options.key?(:xpath)
+          @filename = options[:filename]
+          @xpath = options[:xpath]
+          super(sip)
         end
 
         def fetch
@@ -23,7 +26,6 @@ module Hyrax
           #  @filename attribute are a slash, indicating it should be
           #  interpreted as a regular expression.
           def filename_is_regex?
-            # TODO: This only checks for 
             filename.to_s[0] == '/' && filename.to_s[-1] == '/'
           end
 

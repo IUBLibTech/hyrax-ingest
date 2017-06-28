@@ -1,0 +1,13 @@
+---
+ingest:
+  - Work:
+      type: ExampleWork
+      properties:
+        - rdf_predicate: http://purl.org/dc/terms/title
+          from:
+            Literal: "ExampleWork Title"
+      FileSets:
+        - properties:
+            - rdf_predicate: http://purl.org/dc/terms/title
+              from:
+                Literal: "FileSet Title"

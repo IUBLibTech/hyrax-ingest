@@ -4,11 +4,11 @@ require 'active_fedora'
 module Hyrax
   module Ingest
     module Assigner
-      class ActiveFedoraModel < Base
+      class ActiveFedoraBaseAssigner < Base
         attr_reader :af_model, :rdf_predicate
 
-        def initialize(type: nil, instance_name: nil, rdf_predicate:)
-          @af_model = ActiveFedoraModel.fetch_or_create_instance(type: type, instance_name: instance_name)
+        def initialize(rdf_predicate:, type: nil, instance_name: nil)
+          @af_model = ActiveFedoraBaseAssigner.fetch_or_create_instance(type: type, instance_name: instance_name)
           @rdf_predicate = rdf_predicate
         end
 

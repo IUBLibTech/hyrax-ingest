@@ -1,0 +1,4 @@
+# This is an invalid because the value beneath the top-level 'ingest' key is
+# not an array.
+---
+ingest: this_should_be_an_array_but_its_not

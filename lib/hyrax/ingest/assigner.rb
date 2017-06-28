@@ -1,4 +1,4 @@
-require 'hyrax/ingest/assigner/active_fedora_model'
+require 'hyrax/ingest/assigner/active_fedora_base_assigner'
 
 module Hyrax
   module Ingest
@@ -8,7 +8,7 @@ module Hyrax
         # @return [Set] The set of all assigner classes.
         def all_classes
           @all_classes ||= Set.new.tap do |all_classes|
-            all_classes << Hyrax::Ingest::Assigner::ActiveFedoraModel
+            all_classes << Hyrax::Ingest::Assigner::ActiveFedoraBaseAssigner
           end
         end
 
