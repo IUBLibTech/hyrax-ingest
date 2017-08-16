@@ -8,11 +8,20 @@ RSpec.describe Hyrax::Ingest::Fetcher::XMLFile do
       let(:options) { {filename: 'MDPI_40000000542243_pod.xml', xpath: '/object/details/title' } }
       let(:sip) { Hyrax::Ingest::SIP.new(path: "#{fixture_path}/sip_examples/40000000054496_20160213-082528") }
 
-      subject { described_class.new(options) }
+      let(:fetcher_1) { described_class.new(options) }
+      let(:fetcher_2) { described_class.new(options) }
+
+      before do
+        fetcher_1.sip = sip
+        fetcher_2.sip = sip
+      end
 
       it 'returns the value from the XML pointed to by the xpath' do
-        subject.sip = sip
-        expect(subject.fetch).to eq '"Brain" Cam 1 Tape 1'
+        expect(fetcher_1.fetch).to eq '"Brain" Cam 1 Tape 1'
+      end
+
+      it 'can fetch same metadata from the same SIP using 2 different fetcher objects' do
+        expect(fetcher_1.fetch).to eq fetcher_2.fetch
       end
     end
   end
