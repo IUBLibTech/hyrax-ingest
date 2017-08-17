@@ -39,6 +39,8 @@ module Hyrax
               raise Hyrax::Ingest::Errors::FileNotFoundInSIP.new(filename) unless file
               file.read
             end
+            file.rewind if file
+            @xml
           end
 
           def noko
