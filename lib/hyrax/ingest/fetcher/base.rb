@@ -5,20 +5,16 @@ module Hyrax
   module Ingest
     module Fetcher
       class Base
-        attr_writer :sip
+        attr_reader :sip
 
-        # No-op. Intended to be overridden.
-        def initialize(options={}); end
+        def initialize(sip)
+          raise Hyrax::Ingest::Errors::InvalidSIP.new(self, sip) unless sip.is_a? Hyrax::Ingest::SIP
+          @sip = sip
+        end
 
         # No-op method intended to be overwritten in subclasses.
         # @return nil
         def fetch; end
-
-        def sip
-          raise Hyrax::Ingest::Errors::NoSIPSpecified.new(self) if @sip.nil?
-          raise Hyrax::Ingest::Errors::InvalidSIP.new(self, @sip) unless @sip.is_a? Hyrax::Ingest::SIP
-          @sip
-        end
       end
     end
   end

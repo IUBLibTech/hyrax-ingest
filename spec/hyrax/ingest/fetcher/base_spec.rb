@@ -1,25 +1,27 @@
-require 'spec_helper'
+require 'hyrax_helper'
 require 'hyrax/ingest/fetcher/base'
 
 RSpec.describe Hyrax::Ingest::Fetcher::Base do
-  subject { described_class.new }
+  let(:invalid_sip) { "This is not a valid SIP object" }
+  let(:valid_sip) { Hyrax::Ingest::SIP.new(path: fixture_path) }
 
-  describe 'sip' do
-    context 'when no SIP object has been specified' do
-      it 'raises a Hyrax::Ingest::Errors::NoSIPSpecified error' do
-        expect { subject.sip }.to raise_error Hyrax::Ingest::Errors::NoSIPSpecified
-      end
-    end
-
+  describe '.new' do
     context 'when a non-SIP object has been specified' do
-      before { subject.sip = Object.new }
+      subject { described_class.new(invalid_sip) }
       it 'raises a Hyrax::Ingest::Errors::InvalidSIP error' do
-        expect { subject.sip }.to raise_error Hyrax::Ingest::Errors::InvalidSIP
+        expect { subject }.to raise_error Hyrax::Ingest::Errors::InvalidSIP
       end
     end
-  end
 
-  it 'responds to #fetch' do
-    expect(subject).to respond_to :fetch
+    context 'when given a valid SIP object' do
+      subject { described_class.new(valid_sip) }
+      it 'does not raise an error' do
+        expect { subject }.to_not raise_error
+      end
+
+      it 'responds to #fetch' do
+        expect(subject).to respond_to :fetch
+      end
+    end
   end
 end

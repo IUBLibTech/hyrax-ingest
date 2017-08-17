@@ -1,41 +1,29 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'hyrax/ingest/version'
+$:.push File.expand_path("../lib", __FILE__)
 
-Gem::Specification.new do |spec|
-  spec.name          = "hyrax-ingest"
-  spec.version       = Hyrax::Ingest::VERSION
-  spec.authors       = ["amolmkhedkar"]
-  spec.email         = ["akhedkar@iu.edu"]
+# Maintain your gem's version:
+require "hyrax/ingest/version"
 
-  spec.summary       = %q{Ingest workflow for Hyrax.}
-  spec.description   = %q{Ingest workflow for Hyrax.}
-  spec.homepage      = "https://github.com/IUBLibTech/hyrax-ingest"
-  spec.license       = "MIT"
+# Describe your gem and declare its dependencies:
+Gem::Specification.new do |s|
+  s.name        = "hyrax-ingest"
+  s.version     = Hyrax::Ingest::VERSION
+  s.authors     = ["Andrew Myers"]
+  s.email       = ["afredmyers@gmail.com"]
+  s.summary     = "Summary of Hyrax::Ingest."
+  s.description = "Description of Hyrax::Ingest."
+  s.license     = "MIT"
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
-  end
+  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  s.add_dependency "rails", "~> 5"
+  s.add_dependency "hyrax", "~> 1.0.3"
+  s.add_dependency "minitar"
+  s.add_dependency "nokogiri"
 
-  spec.add_runtime_dependency 'minitar', '~> 0.6.1'
-  spec.add_runtime_dependency 'nokogiri'
-  spec.add_runtime_dependency 'activesupport'
-  spec.add_runtime_dependency 'active-fedora', '~> 11.2.0'
-
-  spec.add_development_dependency "bundler", "~> 1.13"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "engine_cart"
+  s.add_development_dependency "pry-byebug"
+  s.add_development_dependency "solr_wrapper"
+  s.add_development_dependency "fcrepo_wrapper"
 end

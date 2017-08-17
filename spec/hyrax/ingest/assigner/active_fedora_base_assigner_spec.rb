@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'hyrax/ingest/assigner/active_fedora_model'
+require 'hyrax/ingest/assigner/active_fedora_base_assigner'
 
-RSpec.describe Hyrax::Ingest::Assigner::ActiveFedoraModel do
+RSpec.describe Hyrax::Ingest::Assigner::ActiveFedoraBaseAssigner do
 
   before do
     class TestActiveFedoraModel < ActiveFedora::Base

@@ -1,0 +1,8 @@
+# Default configuration for solr_wrapper in development environment
+instance_dir: tmp/solr-development
+port: 8983
+verbose: true
+collection:
+  dir: spec/support/solr/config
+  persist: true
+  name: hydra-development

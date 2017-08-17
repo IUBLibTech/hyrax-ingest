@@ -1,5 +1,6 @@
 require 'hyrax/ingest/mapping'
 require 'hyrax/ingest/fetcher/xml_file'
+require 'hyrax/ingest/fetcher/literal'
 require 'hyrax/ingest/errors'
 
 module Hyrax
@@ -10,16 +11,16 @@ module Hyrax
         def all_classes
           @all_classes ||= Set.new.tap do |all_classes|
             all_classes << Hyrax::Ingest::Fetcher::XMLFile
+            all_classes << Hyrax::Ingest::Fetcher::Literal
           end
         end
 
-        # @param [String] class_name The stringified name of the class
-        #   constant.
-        # @param [Hash] options The hash that will get passed to the
-        #   constructor of the fetcher class.
+        # @param [Hash] options The key is the fetcher class name
+        #   and the value is the hash of options to pass to the constructor of the fetcher
+        #   class.
         # @return An instance of the fetcher class.
-        def factory(class_name, options={})
-          find_class_by_name(class_name).new(**options)
+        def factory(class_name, sip, options={})
+          find_class_by_name(class_name).new(sip, options)
         end
 
         # @param [String] class_name The stringified class name, with our

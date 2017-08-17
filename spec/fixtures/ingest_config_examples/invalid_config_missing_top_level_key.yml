@@ -1,0 +1,4 @@
+# This configuration file is invalid because it's missing the top-level key
+# 'ingest'.
+---
+invalid_top_level_key: "and so this value doesn't matter"

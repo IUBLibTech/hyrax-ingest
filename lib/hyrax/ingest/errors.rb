@@ -24,8 +24,8 @@ module Hyrax
       end
 
       class UnknownActiveFedoraModel < Hyrax::Ingest::Error
-        def initialize(af_model_class)
-          super("Unknown ActiveFedora model type #{af_model_class}")
+        def initialize(af_model_class_name)
+          super("Unknown ActiveFedora model type '#{af_model_class_name.to_s}'")
         end
       end
 
@@ -56,6 +56,24 @@ module Hyrax
       class AmbiguousFetcherClass < Hyrax::Ingest::Error
         def initialize(class_name, matching_classes)
           super("Fetcher class name '#{class_name}' is ambiguous; could mean any one of the following classes: #{Array(matching_classes).join(',')}. Please use namespaces in the class name to be more specific.")
+        end
+      end
+
+      class InvalidFetcher < Hyrax::Ingest::Error
+        def initialize(class_name)
+          super("Invalid fetcher '#{class_name}'; Fetcher objects must extend Hyrax::Ingest::Fetcher::Base.")
+        end
+      end
+
+      class UnknownIngesterClass < Hyrax::Ingest::Error
+        def initialize(class_name, available_classes)
+          super("Ingester class '#{class_name}' not found. Available ingester classes are: #{Array(available_classes).join(', ')}")
+        end
+      end
+
+      class AmbiguousIngesterClass < Hyrax::Ingest::Error
+        def initialize(class_name, matching_classes)
+          super("Ingester class name '#{class_name}' is ambiguous; could mean any one of the following classes: #{Array(matching_classes).join(',')}. Please use namespaces in the class name to be more specific.")
         end
       end
 
@@ -92,6 +110,26 @@ module Hyrax
       class InvalidAssignmentOptions < Hyrax::Ingest::Error
         def initialize(invalid_options)
           super("Invalid assignment options: #{Array(invalid_options).join(', ')}")
+        end
+      end
+
+      class InvalidConfig < Hyrax::Ingest::Error; end
+
+      class InvalidIngesterClass < Hyrax::Ingest::Error
+        def initialize(invalid_class)
+          super("Invalid ingester class #{invalid_class} does not extend Hyrax::Ingest::Ingester::Base")
+        end
+      end
+
+      class NoConfigFileFound < Hyrax::Ingest::Error
+        def initialize(path)
+          super("No ingest config file exists at '#{path}'.")
+        end
+      end
+
+      class UnknownRdfPredicate < Hyrax::Ingest::Error
+        def initialize(unknown_rdf_predicate, af_model_class_name)
+          super("Unknown RDF Predicate '#{unknown_rdf_predicate}' for ActiveFedora model '#{af_model_class_name}'")
         end
       end
     end

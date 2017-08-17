@@ -1,0 +1,14 @@
+---
+ingest:
+  - FileSet:
+      properties:
+        - rdf_predicate: http://purl.org/dc/terms/title
+          from:
+            XMLFile:
+              filename: example_fits.xml
+              xpath: /fits/fileinfo/filename
+              # trim_whitespace: true
+      Files:
+        - external_url: https://path/to/external_file_url
+          original_filename: some_external_file.dat
+          type: http://pcdm.org/use#OriginalFile

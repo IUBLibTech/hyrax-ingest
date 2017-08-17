@@ -1,0 +1,11 @@
+---
+ingest:
+  - FileSet:
+      properties:
+        - rdf_predicate: http://purl.org/dc/terms/title
+          from:
+            Literal: "Example FileSet"
+      Files:
+        - external_url: https://path/to/example_external_file.html
+          original_filename: 'example_external_file'
+          type: http://pcdm.org/use#OriginalFile

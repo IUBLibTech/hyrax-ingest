@@ -1,8 +1,11 @@
-require 'spec_helper'
+require 'hyrax_helper'
 require 'hyrax/ingest/fetcher'
 require 'hyrax/ingest/sip'
 
 RSpec.describe Hyrax::Ingest::Fetcher do
+
+  let(:example_sip) { Hyrax::Ingest::SIP.new(path: fixture_path) }
+
   describe '.find_class_by_name' do
     before do
       # Create a couple of test fetcher classses with the same base name,
@@ -25,13 +28,13 @@ RSpec.describe Hyrax::Ingest::Fetcher do
 
     context 'when the fetcher class name is ambiguous given the list of all available fetcher classes' do
       it 'raises a Hyrax::Ingest::Errors::AmbiguousFetcherClass' do
-        expect { described_class.factory("TestFetcherClass") }.to raise_error Hyrax::Ingest::Errors::AmbiguousFetcherClass
+        expect { described_class.factory("TestFetcherClass", example_sip) }.to raise_error Hyrax::Ingest::Errors::AmbiguousFetcherClass
       end
     end
 
     context 'when the fetcher class name is unknown' do
       it 'raises a Hyrax::Ingest::Errors::UnknownFetcherClass error' do
-        expect { described_class.factory("ThisClassDoesNotExist") }.to raise_error Hyrax::Ingest::Errors::UnknownFetcherClass
+        expect { described_class.factory("ThisClassDoesNotExist", example_sip) }.to raise_error Hyrax::Ingest::Errors::UnknownFetcherClass
       end
     end
 
@@ -47,7 +50,7 @@ RSpec.describe Hyrax::Ingest::Fetcher do
   describe '.factory' do
     context 'when given params that specify fetching to an XMLFilke fetcher class' do
       it 'returns an instance of Hyrax::Ingest::Fetcher::XMLFile' do
-        expect(described_class.factory('XMLFile', filename: 'foo', xpath: 'bar')).to be_a Hyrax::Ingest::Fetcher::XMLFile
+        expect(described_class.factory('XMLFile', example_sip, filename: 'foo', xpath: 'bar')).to be_a Hyrax::Ingest::Fetcher::XMLFile
       end
     end
   end

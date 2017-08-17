@@ -56,7 +56,7 @@ RSpec.describe Hyrax::Ingest::Assigner do
       let(:options) { { type: "TestActiveFedoraModel", rdf_predicate: 'http://example.org#foo'} }
 
       it 'returns an instance of Hyrax::Ingest::Assigner::ActiveFedoraModel' do
-        expect(described_class.factory('ActiveFedoraModel', options)).to be_a Hyrax::Ingest::Assigner::ActiveFedoraModel
+        expect(described_class.factory('ActiveFedoraBaseAssigner', options)).to be_a Hyrax::Ingest::Assigner::ActiveFedoraBaseAssigner
       end
 
       # Undefine the test class
