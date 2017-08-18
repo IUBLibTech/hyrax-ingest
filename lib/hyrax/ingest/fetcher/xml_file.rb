@@ -32,7 +32,8 @@ module Hyrax
           def xml
             @xml ||= begin
               file = if filename_is_regex?
-                sip.files.find { |file| File.basename(file) =~ filename }
+                regexp = Regexp.new(filename[1..-2])
+                sip.files.find { |file| File.basename(file) =~ regexp }
               else
                 sip.files.find { |file| File.basename(file) == filename }
               end

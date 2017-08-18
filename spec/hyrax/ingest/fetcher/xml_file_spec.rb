@@ -20,6 +20,15 @@ RSpec.describe Hyrax::Ingest::Fetcher::XMLFile do
         expect(fetcher_1.fetch).to eq fetcher_2.fetch
       end
     end
+
+    context 'when :filename options is a regexp' do
+      let(:options) { { filename: '/_pod.xml$/', xpath: '/object/details/title' } }
+      let(:fetcher) { described_class.new(sip, options) }
+
+      it 'finds the file within the sip' do
+        expect(fetcher.fetch).to eq '"Brain" Cam 1 Tape 1'
+      end
+    end
   end
 
   describe '.new' do
