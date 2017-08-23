@@ -13,7 +13,7 @@ RSpec.describe Hyrax::Ingest::Fetcher::XMLFile do
       let(:fetcher_2) { described_class.new(sip, options) }
 
       it 'returns the value from the XML pointed to by the xpath' do
-        expect(fetcher_1.fetch).to eq '"Brain" Cam 1 Tape 1'
+        expect(fetcher_1.fetch).to eq ['"Brain" Cam 1 Tape 1']
       end
 
       it 'can fetch same metadata from the same SIP using 2 different fetcher objects' do
@@ -26,7 +26,7 @@ RSpec.describe Hyrax::Ingest::Fetcher::XMLFile do
       let(:fetcher) { described_class.new(sip, options) }
 
       it 'finds the file within the sip' do
-        expect(fetcher.fetch).to eq '"Brain" Cam 1 Tape 1'
+        expect(fetcher.fetch).to eq ['"Brain" Cam 1 Tape 1']
       end
     end
   end

@@ -17,7 +17,7 @@ module Hyrax
 
         def fetch
           # TODO: log a warning in the event of empty results.
-          noko.xpath(xpath).text
+          noko.xpath(xpath).map(&:text)
         end
 
         private
