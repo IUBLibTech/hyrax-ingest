@@ -2,6 +2,8 @@ require 'hyrax/ingest/mapping'
 require 'hyrax/ingest/fetcher/xml_file'
 require 'hyrax/ingest/fetcher/yaml_file'
 require 'hyrax/ingest/fetcher/literal'
+require 'hyrax/ingest/fetcher/premis_event_type'
+require 'hyrax/ingest/fetcher/rdf_uri'
 require 'hyrax/ingest/errors'
 
 module Hyrax
@@ -14,6 +16,8 @@ module Hyrax
             all_classes << Hyrax::Ingest::Fetcher::XMLFile
             all_classes << Hyrax::Ingest::Fetcher::YAMLFile
             all_classes << Hyrax::Ingest::Fetcher::Literal
+            all_classes << Hyrax::Ingest::Fetcher::PremisEventType
+            all_classes << Hyrax::Ingest::Fetcher::RdfUri
           end
         end
 

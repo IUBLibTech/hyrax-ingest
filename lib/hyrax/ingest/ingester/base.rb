@@ -4,6 +4,7 @@ module Hyrax
       class Base
         attr_reader :sip
         def initialize(sip)
+          raise Hyrax::Ingest::Errors::InvalidSIP.new(sip) unless sip.is_a? Hyrax::Ingest::SIP
           @sip = sip
         end
 

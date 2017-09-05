@@ -18,8 +18,8 @@ module Hyrax
       end
 
       class InvalidSIP < Hyrax::Ingest::Error
-        def initialize(fetcher_obj, invalid_sip_obj)
-          super("Invalid SIP object. SIP must be an instance of Hyrax::Ingest::SIP (or an instance of a subclass) but an instance of #{invalid_sip_obj.class} was found. Set a valid SIP object with #{fetcher_obj.class}#sip=")
+        def initialize(invalid_sip_obj)
+          super("Invalid SIP object. SIP must be an instance of Hyrax::Ingest::SIP (or an instance of a subclass) but an instance of #{invalid_sip_obj.class} was found.")
         end
       end
 

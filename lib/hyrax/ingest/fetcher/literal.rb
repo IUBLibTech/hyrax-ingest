@@ -11,9 +11,7 @@ module Hyrax
           @literal_value = literal_value
           super(sip)
         end
-
-        # No-op method intended to be overwritten in subclasses.
-        # @return nil
+        
         def fetch
           literal_value
         end

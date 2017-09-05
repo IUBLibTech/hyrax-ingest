@@ -46,3 +46,6 @@ else
   end
 end
 # END ENGINE_CART BLOCK
+
+# TODO: Need to pull from github until gem is published to ruby-gems.
+gem 'hyrax-preservation', github: 'IUBLibTech/hyrax-preservation', branch: 'namesapec_under_hyrax'
