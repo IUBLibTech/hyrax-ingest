@@ -1,5 +1,6 @@
 require 'hyrax/ingest/mapping'
 require 'hyrax/ingest/fetcher/xml_file'
+require 'hyrax/ingest/fetcher/yaml_file'
 require 'hyrax/ingest/fetcher/literal'
 require 'hyrax/ingest/errors'
 
@@ -11,6 +12,7 @@ module Hyrax
         def all_classes
           @all_classes ||= Set.new.tap do |all_classes|
             all_classes << Hyrax::Ingest::Fetcher::XMLFile
+            all_classes << Hyrax::Ingest::Fetcher::YAMLFile
             all_classes << Hyrax::Ingest::Fetcher::Literal
           end
         end
