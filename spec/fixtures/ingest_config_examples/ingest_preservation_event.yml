@@ -1,0 +1,10 @@
+---
+ingest:
+  - PreservationEvent:
+      properties:
+      - rdf_predicate: "http://www.loc.gov/premis/rdf/v1#hasEventType"
+        from:
+          PremisEventType: 'ing'
+      - rdf_predicate: "http://www.loc.gov/premis/rdf/v1#hasAgent"
+        from:
+          RdfUri: 'mailto:admin@example.org'

@@ -4,6 +4,7 @@
 require 'hyrax/ingest/ingester/active_fedora_base_ingester'
 require 'hyrax/ingest/ingester/file_set_ingester'
 require 'hyrax/ingest/ingester/work_ingester'
+require 'hyrax/ingest/ingester/preservation_event_ingester'
 require 'hyrax/ingest/errors'
 
 module Hyrax
@@ -16,6 +17,7 @@ module Hyrax
             registered_classes << Hyrax::Ingest::Ingester::ActiveFedoraBaseIngester
             registered_classes << Hyrax::Ingest::Ingester::FileSetIngester
             registered_classes << Hyrax::Ingest::Ingester::WorkIngester
+            registered_classes << Hyrax::Ingest::Ingester::PreservationEventIngester
           end
         end
 
