@@ -14,6 +14,7 @@ module Hyrax
 
       def run!
         ingesters.collect { |ingester| ingester.run! }
+        sip.close_all_files
       end
 
       def errors

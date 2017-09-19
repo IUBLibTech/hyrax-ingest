@@ -23,6 +23,11 @@ module Hyrax
         @files ||= []
       end
 
+      def close_all_files
+        files.each { |f| f.close }
+        @files = nil
+      end
+
       private
 
         # @return Array An Array containing the one and only file pointed to by #path
