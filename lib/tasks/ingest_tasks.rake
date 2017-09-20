@@ -3,7 +3,7 @@ require 'rails'
 
 namespace :hyrax do
   desc 'Ingest one or more SIPs, using a specified package configuration'
-  task :ingest, [:package_type] do |_task, args|
+  task :ingest, [:package_type] => :environment do |_task, args|
     package_types = {}
     Dir[Rails.root.join('config', 'ingests', '*.yml')].each do |path|
       package_types[File.basename(path, File.extname(path))] = path
