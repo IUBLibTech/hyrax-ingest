@@ -1,6 +1,7 @@
 # Default configuration for solr_wrapper in test environment
 instance_dir: tmp/solr-test
 port: 8985
+version: 6.6.1
 collection:
   dir: spec/support/solr/config
   name: hydra-test
