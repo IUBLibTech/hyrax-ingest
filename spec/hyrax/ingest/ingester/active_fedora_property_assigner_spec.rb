@@ -22,7 +22,7 @@ RSpec.describe Hyrax::Ingest::Ingester::ActiveFedoraPropertyAssigner do
         end
       end
 
-      it 'assigns multiple values from a fetcher to the property on the ActiveFedora model' do
+      it 'assigns a single value from a fetcher to the property on the ActiveFedora model' do
         subject.assign!
         expect(fake_af_model.foo).to eq fake_fetcher.fetch
       end
@@ -37,7 +37,7 @@ RSpec.describe Hyrax::Ingest::Ingester::ActiveFedoraPropertyAssigner do
         end
       end
 
-      it 'assigns a single value from a fetcher to the property on the ActiveFedora model' do
+      it 'assigns multiple values from a fetcher to the property on the ActiveFedora model' do
         subject.assign!
         expect(fake_af_model.bar).to eq fake_fetcher.fetch
       end

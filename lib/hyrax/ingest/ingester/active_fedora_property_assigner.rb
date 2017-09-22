@@ -1,11 +1,14 @@
 require 'hyrax/ingest/fetcher/base'
 require 'hyrax/ingest/errors'
+require 'hyrax/ingest/logging'
 require 'active_fedora'
 
 module Hyrax
   module Ingest
     module Ingester
       class ActiveFedoraPropertyAssigner
+        include Logging
+
         attr_reader :rdf_predicate, :af_model, :fetcher
 
         def initialize(options={})
@@ -17,7 +20,9 @@ module Hyrax
         end
 
         def assign!
-          af_model.set_value(property_name, fetcher.fetch)
+          fetched_value = fetcher.fetch
+          logger.info "value: '#{fetched_value}'\nproperty: #{property_name}\npredicate: #{rdf_predicate}\n"
+          af_model.set_value(property_name, fetched_value)
         end
 
         private

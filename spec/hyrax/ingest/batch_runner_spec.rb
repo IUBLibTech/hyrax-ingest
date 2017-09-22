@@ -11,16 +11,10 @@ RSpec.describe Hyrax::Ingest::BatchRunner do
 
 
   describe '#run!' do
-    # let(:mock_runners) do
-    #   (0..number_of_sips).to_a.map { instance_double(Hyrax::Ingest::Runner) }
-    # end
-
-    # before do
-    #   allow(subject).to receive(:runners).and_return(mock_runners)
-    # end
-
-
-    it 'calls #run! for all runners' do
+    it 'prints a log message, calls #run! for all runners, and prints another log message' do
+      # We say 'at_least' because the Runners themselves will make additional
+      # calls to #logger#info.
+      expect(subject.logger).to receive(:info).at_least(2).times
       subject.send(:runners).each { |runner| expect(runner).to receive(:run!).exactly(1).times }
       subject.run!
     end
