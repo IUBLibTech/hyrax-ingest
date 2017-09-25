@@ -6,6 +6,8 @@ require File.expand_path('../../.internal_test_app/config/environment', __FILE__
 require 'spec_helper'
 require 'rails'
 
+require "hyrax/ingest"
+
 require 'engine_cart'
 EngineCart.load_application!
 

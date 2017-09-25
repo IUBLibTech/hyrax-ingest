@@ -1,7 +1,11 @@
+require 'hyrax/ingest/logging'
+
 module Hyrax
   module Ingest
     module Ingester
       class Base
+        include Hyrax::Ingest::Logging
+
         attr_reader :sip
         def initialize(sip)
           raise Hyrax::Ingest::Errors::InvalidSIP.new(sip) unless sip.is_a? Hyrax::Ingest::SIP
