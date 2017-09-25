@@ -2,6 +2,7 @@
 instance_dir: tmp/solr-development
 port: 8983
 verbose: true
+version: 6.6.1
 collection:
   dir: spec/support/solr/config
   persist: true
