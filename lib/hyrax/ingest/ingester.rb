@@ -1,6 +1,3 @@
-# require 'hyrax/ingest/sip'
-# require 'hyrax/ingest/mapping'
-# require 'active_support/core_ext/hash/keys'
 require 'hyrax/ingest/ingester/active_fedora_base_ingester'
 require 'hyrax/ingest/ingester/file_set_ingester'
 require 'hyrax/ingest/ingester/work_ingester'
