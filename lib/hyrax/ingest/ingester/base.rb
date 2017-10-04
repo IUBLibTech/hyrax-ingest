@@ -1,10 +1,10 @@
-require 'hyrax/ingest/logging'
+require 'hyrax/ingest/reporting'
 
 module Hyrax
   module Ingest
     module Ingester
       class Base
-        include Hyrax::Ingest::Logging
+        include Reporting
 
         attr_reader :sip
         def initialize(sip)

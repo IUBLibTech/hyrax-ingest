@@ -9,13 +9,13 @@ RSpec.describe Hyrax::Ingest::BatchRunner do
 
   subject { described_class.new(config_file_path: config_file_path, sip_paths: sip_paths) }
 
-
   describe '#run!' do
     it 'prints a log message, calls #run! for all runners, and prints another log message' do
       # We say 'at_least' because the Runners themselves will make additional
       # calls to #logger#info.
-      expect(subject.logger).to receive(:info).at_least(2).times
-      subject.send(:runners).each { |runner| expect(runner).to receive(:run!).exactly(1).times }
+      expect(subject.report).to receive(:batch_ingest_started).exactly(1).times.ordered
+      subject.send(:runners).each { |runner| expect(runner).to receive(:run!).exactly(1).times.ordered }
+      expect(subject.report).to receive(:batch_ingest_complete).exactly(1).times.ordered
       subject.run!
     end
   end

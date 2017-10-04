@@ -1,13 +1,13 @@
 require 'hyrax/ingest/fetcher/base'
 require 'hyrax/ingest/errors'
-require 'hyrax/ingest/logging'
+require 'hyrax/ingest/reporting'
 require 'active_fedora'
 
 module Hyrax
   module Ingest
     module Ingester
       class ActiveFedoraPropertyAssigner
-        include Logging
+        include Reporting
 
         attr_reader :rdf_predicate, :af_model, :fetcher, :transformer
 
@@ -23,7 +23,7 @@ module Hyrax
         def assign!
           fetched_value = fetcher.fetch
           fetched_value = transformer.transform(fetched_value) if transformer
-          logger.info "value: '#{fetched_value}'\nproperty: #{property_name}\npredicate: #{rdf_predicate}\n"
+          report.value_assigned_to_property(fetched_value, property_name, rdf_predicate)
           af_model.set_value(property_name, fetched_value)
         end
 

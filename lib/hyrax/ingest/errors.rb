@@ -126,6 +126,12 @@ module Hyrax
           super("Unknown RDF Predicate '#{unknown_rdf_predicate}' for ActiveFedora model '#{af_model_class_name}'")
         end
       end
+
+      class UnrecognizedTransformOption < Hyrax::Ingest::Error
+        def initialize(unrecognized_transform_option)
+          super("Unknown transform option: '#{unrecognized_transform_option}'")
+        end
+      end
     end
   end
 end
