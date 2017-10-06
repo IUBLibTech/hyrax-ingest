@@ -12,8 +12,8 @@ module Hyrax
       end
 
       class NoSIPSpecified < Hyrax::Ingest::Error
-        def initialize(fetcher_obj)
-          super("No SIP was specified. Set the sip with #{fetcher_obj.class}#sip=")
+        def initialize(transformer_obj)
+          super("No SIP was specified. Set the sip with #{transformer_obj.class}#sip=")
         end
       end
 
@@ -49,7 +49,7 @@ module Hyrax
 
       class UnknownFetcherClass < Hyrax::Ingest::Error
         def initialize(class_name, available_classes)
-          super("Fetcher class '#{class_name}' not found. Available fetcher classes are: #{Array(available_classes).join(', ')}")
+          super("Fetcher class '#{class_name}' not found. Available transformer classes are: #{Array(available_classes).join(', ')}")
         end
       end
 
@@ -61,7 +61,7 @@ module Hyrax
 
       class InvalidFetcher < Hyrax::Ingest::Error
         def initialize(class_name)
-          super("Invalid fetcher '#{class_name}'; Fetcher objects must extend Hyrax::Ingest::Fetcher::Base.")
+          super("Invalid transformer '#{class_name}'; Fetcher objects must extend Hyrax::Ingest::Fetcher::Base.")
         end
       end
 
@@ -79,7 +79,7 @@ module Hyrax
 
       class AmbiguousFetchOptions < Hyrax::Ingest::Error
         def initialize(ambiguous_options)
-          super("Could not determine which fetcher class to use given the following options: #{Array(ambiguous_options).join(', ')}")
+          super("Could not determine which transformer class to use given the following options: #{Array(ambiguous_options).join(', ')}")
         end
       end
 
@@ -95,29 +95,23 @@ module Hyrax
         end
       end
 
-      class AmbiguousAssignmentOptions < Hyrax::Ingest::Error
-        def initialize(ambiguous_options)
-          super("Could not determine which assigner class to use given the following options: #{Array(ambiguous_options).join(', ')}")
-        end
-      end
-
-      class MissingRequiredAssignmentOptions < Hyrax::Ingest::Error
-        def initialize(missing_options)
-          super("Missing required assignment options: #{Array(missing_options).join(', ')}")
-        end
-      end
-
-      class InvalidAssignmentOptions < Hyrax::Ingest::Error
-        def initialize(invalid_options)
-          super("Invalid assignment options: #{Array(invalid_options).join(', ')}")
-        end
-      end
-
       class InvalidConfig < Hyrax::Ingest::Error; end
 
       class InvalidIngesterClass < Hyrax::Ingest::Error
         def initialize(invalid_class)
           super("Invalid ingester class #{invalid_class} does not extend Hyrax::Ingest::Ingester::Base")
+        end
+      end
+
+      class UnknownTransformerClass < Hyrax::Ingest::Error
+        def initialize(class_name, available_classes)
+          super("Transformer class '#{class_name}' not found. Available transformer classes are: #{Array(available_classes).join(', ')}")
+        end
+      end
+
+      class AmbiguousTransformerClass < Hyrax::Ingest::Error
+        def initialize(class_name, matching_classes)
+          super("Transformer class name '#{class_name}' is ambiguous; could mean any one of the following classes: #{Array(matching_classes).join(',')}. Please use namespaces in the class name to be more specific.")
         end
       end
 

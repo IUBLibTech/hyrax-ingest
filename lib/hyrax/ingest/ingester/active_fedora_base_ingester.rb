@@ -3,6 +3,7 @@ require 'active_support/inflector'
 require 'active_fedora'
 require 'hyrax/ingest/ingester/active_fedora_property_assigner'
 require 'hyrax/ingest/fetcher'
+require 'hyrax/ingest/transformer'
 
 module Hyrax
   module Ingest
@@ -49,11 +50,19 @@ module Hyrax
             @property_assigners ||= properties_config.map do |property_config|
               fetcher_class_name = property_config[:from].keys.first
               fetcher_class_options = property_config[:from].values.first
+
               property_assigner_options = {
                 rdf_predicate: property_config[:rdf_predicate],
                 fetcher: Hyrax::Ingest::Fetcher.factory(fetcher_class_name, sip, fetcher_class_options),
                 af_model: af_model
               }
+
+              if property_config.key?(:transform)
+                transformer_class_name = property_config[:transform].keys.first
+                transformer_class_options = property_config[:transform].values.first
+                property_assigner_options[:transformer] = Hyrax::Ingest::Transformer.factory(transformer_class_name, transformer_class_options)
+              end
+
               ActiveFedoraPropertyAssigner.new(property_assigner_options)
             end
           end

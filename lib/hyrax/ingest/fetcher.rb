@@ -1,4 +1,3 @@
-require 'hyrax/ingest/mapping'
 require 'hyrax/ingest/fetcher/xml_file'
 require 'hyrax/ingest/fetcher/yaml_file'
 require 'hyrax/ingest/fetcher/literal'

@@ -9,18 +9,20 @@ module Hyrax
       class ActiveFedoraPropertyAssigner
         include Logging
 
-        attr_reader :rdf_predicate, :af_model, :fetcher
+        attr_reader :rdf_predicate, :af_model, :fetcher, :transformer
 
         def initialize(options={})
           @rdf_predicate = options[:rdf_predicate]
           @fetcher = options[:fetcher]
           @af_model = options[:af_model]
+          @transformer = options[:transformer]
           raise Hyrax::Ingest::Errors::UnknownActiveFedoraModel.new(@af_model.class) unless @af_model.is_a? ActiveFedora::Base
           raise Hyrax::Ingest::Errors::InvalidFetcher.new(@fetcher.class) unless @fetcher.is_a? Hyrax::Ingest::Fetcher::Base
         end
 
         def assign!
           fetched_value = fetcher.fetch
+          fetched_value = transformer.transform(fetched_value) if transformer
           logger.info "value: '#{fetched_value}'\nproperty: #{property_name}\npredicate: #{rdf_predicate}\n"
           af_model.set_value(property_name, fetched_value)
         end
