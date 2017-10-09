@@ -1,22 +1,23 @@
 require 'hyrax/ingest/runner'
-require 'hyrax/ingest/logging'
+require 'hyrax/ingest/reporting'
 
 module Hyrax
   module Ingest
     class BatchRunner
-      include Hyrax::Ingest::Logging
+      include Reporting
       def initialize(config_file_path:, sip_paths:)
         @sip_paths = sip_paths
         @config_file_path = config_file_path
       end
 
       def run!
-        logger.info("Batch ingest of #{runners.count} SIPs started.")
+        report.batch_ingest_started(runners.count)
         runners.each_with_index do |runner, i|
-          logger.info "Ingesting SIP #{i+1} of #{runners.count}"
+          report.sip_ingest_started((i+1), runners.count)
           runner.run!
+          report.sip_ingest_complete((i+1), runners.count)
         end
-        logger.info("Batch ingest complete!")
+        report.batch_ingest_complete(runners.count)
       end
 
       private

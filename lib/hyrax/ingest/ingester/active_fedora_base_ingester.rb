@@ -20,9 +20,10 @@ module Hyrax
         end
 
         def run!
-          logger.info("Assigning properties for #{af_model}")
+          report.model_ingest_started(af_model_class_name)
           assign_properties!
           af_model.save!
+          report.model_ingest_complete(af_model_class_name)
         end
 
         def af_model
@@ -37,11 +38,9 @@ module Hyrax
         protected
 
           def assign_properties!
-            logger.info "Assigning properties for #{af_model_class_name}"
             property_assigners.each do |property_assigner|
               property_assigner.assign!
             end
-            logger.info "Done assigning properties for #{af_model_class_name}\n"
           end
 
         private

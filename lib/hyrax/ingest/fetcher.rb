@@ -3,6 +3,7 @@ require 'hyrax/ingest/fetcher/yaml_file'
 require 'hyrax/ingest/fetcher/literal'
 require 'hyrax/ingest/fetcher/premis_event_type'
 require 'hyrax/ingest/fetcher/rdf_uri'
+require 'hyrax/ingest/fetcher/date_time'
 require 'hyrax/ingest/errors'
 
 module Hyrax
@@ -17,6 +18,7 @@ module Hyrax
             all_classes << Hyrax::Ingest::Fetcher::Literal
             all_classes << Hyrax::Ingest::Fetcher::PremisEventType
             all_classes << Hyrax::Ingest::Fetcher::RdfUri
+            all_classes << Hyrax::Ingest::Fetcher::DateTime
           end
         end
 

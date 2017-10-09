@@ -11,7 +11,7 @@ module Hyrax
           @literal_value = literal_value
           super(sip)
         end
-        
+
         def fetch
           literal_value
         end
