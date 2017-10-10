@@ -1,10 +1,13 @@
 require 'hyrax/ingest/configuration'
 require 'hyrax/ingest/ingester'
+require 'hyrax/ingest/reporting'
 
 
 module Hyrax
   module Ingest
     class Runner
+      include Reporting
+
       attr_reader :config, :sip
 
       def initialize(config_file_path:, source_files_path:)

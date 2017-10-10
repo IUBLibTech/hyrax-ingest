@@ -22,8 +22,9 @@ module Hyrax
         def run!
           report.model_ingest_started(af_model_class_name)
           assign_properties!
-          af_model.save!
+          save_model!
           report.model_ingest_complete(af_model_class_name)
+          # return the new instance of the ActiveFedora model
           af_model
         end
 
@@ -37,6 +38,16 @@ module Hyrax
         end
 
         protected
+
+          def save_model!(continue_if_invalid: true)
+            af_model.instance_eval { save! }
+            af_model.save!
+            af_model
+          rescue ActiveFedora::RecordInvalid => e
+            report.model_ingest_failed_validation(af_model_class_name, e.message)
+            raise e unless continue_if_invalid
+            false
+          end
 
           def assign_properties!
             property_assigners.each do |property_assigner|

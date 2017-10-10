@@ -16,9 +16,10 @@ module Hyrax
 
         def run!
           assign_properties!
-          af_model.save!
+          save_model!
           ingest_preservation_events!
           add_files_to_file_set!
+          # return the new instance of the ActiveFedora model
           af_model
         end
 

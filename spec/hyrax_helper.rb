@@ -17,4 +17,8 @@ RSpec.configure do |config|
     require 'active_fedora/cleaner'
     ActiveFedora::Cleaner.clean! if ActiveFedora::Base.count > 0
   end
+
+  config.after(:suite) do
+    File.delete(Hyrax::Ingest::Reporting.config[:filename]) if File.exist? Hyrax::Ingest::Reporting.config[:filename]
+  end
 end
