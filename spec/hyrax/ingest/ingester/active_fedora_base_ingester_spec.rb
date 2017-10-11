@@ -36,6 +36,9 @@ RSpec.describe Hyrax::Ingest::Ingester::ActiveFedoraBaseIngester do
     end
 
     before do
+      fake_property_assigners.each do |fake_property_assigner|
+        allow(fake_property_assigner).to receive(:assign!)
+      end
       allow(subject).to receive(:property_assigners).and_return(fake_property_assigners)
     end
 
@@ -44,6 +47,10 @@ RSpec.describe Hyrax::Ingest::Ingester::ActiveFedoraBaseIngester do
         expect(fake_property_assigner).to receive(:assign!)
       end
       subject.run!
+    end
+
+    it 'returns the ingested objects' do
+      expect(subject.run!).to be_an_instance_of(TestActiveFedoraModel)
     end
   end
 

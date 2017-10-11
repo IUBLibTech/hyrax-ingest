@@ -19,6 +19,7 @@ module Hyrax
           af_model.save!
           ingest_preservation_events!
           add_files_to_file_set!
+          af_model
         end
 
         private

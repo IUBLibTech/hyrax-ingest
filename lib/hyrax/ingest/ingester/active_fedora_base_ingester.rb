@@ -24,6 +24,7 @@ module Hyrax
           assign_properties!
           af_model.save!
           report.model_ingest_complete(af_model_class_name)
+          af_model
         end
 
         def af_model

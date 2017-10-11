@@ -15,5 +15,9 @@ RSpec.describe Hyrax::Ingest::Ingester::FileSetIngester do
 
       subject.run!
     end
+
+    it 'returns the ingested object' do
+      expect(subject.run!).to be_an_instance_of(FileSet)
+    end
   end
 end
