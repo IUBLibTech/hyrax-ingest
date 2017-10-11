@@ -1,4 +1,5 @@
 require 'hyrax/ingest/ingester/active_fedora_base_ingester'
+require 'hyrax/ingest/ingester/file_set_ingester'
 
 module Hyrax
   module Ingest
@@ -18,6 +19,7 @@ module Hyrax
           file_set_ingesters.each { |file_set_ingester| file_set_ingester.assign_properties! }
           af_model.save!
           assign_file_sets_to_work!
+          af_model
         end
 
         private
