@@ -17,7 +17,9 @@ module Hyrax
         def run!
           assign_properties!
           af_model.premis_event_related_object = premis_event_related_object
-          af_model.save!
+          save_model!
+          # return the new instance of the ActiveFedora model
+          af_model
         end
       end
     end

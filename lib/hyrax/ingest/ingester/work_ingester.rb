@@ -16,13 +16,18 @@ module Hyrax
 
         def run!
           assign_properties!
-          file_set_ingesters.each { |file_set_ingester| file_set_ingester.assign_properties! }
-          af_model.save!
+          assign_related_file_set_properties!
+          save_model!
           assign_file_sets_to_work!
+          # return the new instance of the ActiveFedora model
           af_model
         end
 
         private
+
+          def assign_related_file_set_properties!
+            file_set_ingesters.each { |file_set_ingester| file_set_ingester.assign_properties! }
+          end
 
           def assign_file_sets_to_work!
             file_set_ingesters.each do |file_set_ingester|

@@ -9,7 +9,7 @@ describe Hyrax::Ingest::Reporting do
 
   describe '#report' do
     it 'returns a SharedReporter object' do
-      expect(TestClass1.new.report).to be_a Hyrax::Ingest::SharedReporter
+      expect(TestClass1.new.report).to be_a Hyrax::Ingest::SharedReport
     end
 
     it 'returns the same (singleton) Logger object when included in 2 different classes' do
@@ -21,3 +21,19 @@ describe Hyrax::Ingest::Reporting do
   after { [:TestClass1, :TestClass2].each { |sym| Object.send(:remove_const, sym) } }
 end
 
+
+
+describe Hyrax::Ingest::SharedReport do
+  describe 'write' do
+
+    let(:report) { Hyrax::Ingest::SharedReport.instance }
+    let(:report_output) { report.print_report }
+    let(:test_text) { "this is some test text" }
+
+    before { report.write(test_text) }
+
+    it 'writes text to the report' do
+      expect(report_output).to include test_text
+    end
+  end
+end

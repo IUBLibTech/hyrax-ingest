@@ -8,7 +8,6 @@ module Hyrax
     module Ingester
       class ActiveFedoraPropertyAssigner
         include Reporting
-
         attr_reader :rdf_predicate, :af_model, :fetcher, :transformer
 
         def initialize(options={})
@@ -25,6 +24,9 @@ module Hyrax
           fetched_value = transformer.transform(fetched_value) if transformer
           report.value_assigned_to_property(fetched_value, property_name, rdf_predicate)
           af_model.set_value(property_name, fetched_value)
+        rescue ::ActiveTriples::Relation::ValueError => e
+          # Rethrow ActiveTriples::Relation::ValueError as something more specific to ingest.
+          raise Hyrax::Ingest::Errors::InvalidActiveFedoraPropertyValue.new(fetched_value, property_name, rdf_predicate)
         end
 
         private

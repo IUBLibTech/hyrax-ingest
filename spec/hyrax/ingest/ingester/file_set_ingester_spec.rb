@@ -10,7 +10,7 @@ RSpec.describe Hyrax::Ingest::Ingester::FileSetIngester do
 
     it 'calls assign_properties!, af_model.save!, and add_files_to_file_set! in order' do
       expect(subject).to receive(:assign_properties!).ordered.exactly(1).times
-      expect(subject.af_model).to receive(:save!).ordered.exactly(1).times
+      expect(subject).to receive(:save_model!).ordered.exactly(1).times
       expect(subject).to receive(:add_files_to_file_set!).ordered.exactly(1).times
 
       subject.run!

@@ -8,9 +8,9 @@ RSpec.describe Hyrax::Ingest::Ingester::PreservationEventIngester do
 
     subject { described_class.new(example_sip, example_config) }
 
-    it 'calls af_model.save!' do
+    it 'calls save_model!' do
       expect(subject).to receive(:assign_properties!).ordered.exactly(1).times
-      expect(subject.af_model).to receive(:save!).ordered.exactly(1).times
+      expect(subject).to receive(:save_model!).ordered.exactly(1).times
       subject.run!
     end
   end

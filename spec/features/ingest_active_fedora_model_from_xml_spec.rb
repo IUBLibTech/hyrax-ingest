@@ -17,9 +17,6 @@ RSpec.describe "Ingesting an ActiveFedora model from XML" do
       source_files_path: "#{fixture_path}/sip_examples/ingest_active_fedora_model_from_xml"
     )
 
-    # TODO: Replace this before hook with ActiveFedora cleaner
-    ActiveFedora::Base.all.each { |af| af.delete }
-
     @runner.run!
   end
 
@@ -35,9 +32,6 @@ RSpec.describe "Ingesting an ActiveFedora model from XML" do
   end
 
   after do
-    # TODO: Replace this before hook with ActiveFedora cleaner
-    ActiveFedora::Base.all.each { |af| af.delete }
-
     Object.send(:remove_const, :MyModel)
   end
 end

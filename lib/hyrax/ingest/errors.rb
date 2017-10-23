@@ -132,6 +132,18 @@ module Hyrax
           super("Unknown transform option: '#{unrecognized_transform_option}'")
         end
       end
+
+      class UnableToPrintIngestReport < Hyrax::Ingest::Error
+        def initialize(unable_to_read_from_this_thing)
+          super("Cannot print ingest report from #{unable_to_read_from_this_thing}. To print a report, it must be written to a file.")
+        end
+      end
+
+      class InvalidReportConfigOptions < Hyrax::Ingest::Error
+        def initialize(invalid_options)
+          super("Invalid reporting config options: #{invalid_options.join(', ')}")
+        end
+      end
     end
   end
 end

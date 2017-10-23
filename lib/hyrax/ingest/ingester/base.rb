@@ -12,9 +12,8 @@ module Hyrax
           @sip = sip
         end
 
-        def run!
-          # no-op, meant to be overrriden
-        end
+        # no-op, meant to be overrriden
+        def run!; end
       end
     end
   end
