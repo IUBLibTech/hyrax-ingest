@@ -22,11 +22,11 @@ module Hyrax
           @row = options.fetch(:row, '').to_s.strip.downcase
           @header_row_number = options.fetch(:header_row_number, 1)
           @row_offset = options[:row_offset]
+          super
         end
 
         def fetch
-          # TODO: log a warning in the event of empty results.
-          cell_value
+          @fetched_value ||= cell_value
         end
 
         private
@@ -79,6 +79,8 @@ module Hyrax
           end
 
           def string_is_integer?(str)
+            # remove leading zeros first
+            str.sub!(/^0+/, '')
             str.to_i.to_s == str.to_s
           end
       end

@@ -23,10 +23,6 @@ RSpec.describe "Ingesting an ActiveFedora model from XML with default values" do
       @runner.run!
     end
 
-    it "does not have any errors" do
-      expect(@runner.errors).to be_empty
-    end
-
     it 'ingests the model with supplied metadata' do
       expect(MyModel.where(title: "Test Title 1").count).to eq 1
     end
@@ -40,10 +36,6 @@ RSpec.describe "Ingesting an ActiveFedora model from XML with default values" do
       )
 
       @runner.run!
-    end
-
-    it "does not have any errors" do
-      expect(@runner.errors).to be_empty
     end
 
     it 'ingests the model with default metadata' do

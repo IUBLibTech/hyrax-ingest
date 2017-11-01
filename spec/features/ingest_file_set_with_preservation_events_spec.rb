@@ -18,10 +18,6 @@ RSpec.describe "Ingesting a FileSet with Preservation Events" do
     let(:preservation_events) { Hyrax::Preservation::Event.all }
     let(:file_sets) { ::FileSet.all }
 
-    it "does not have any errors" do
-      expect(@runner.errors).to be_empty
-    end
-
     it 'ingests the correctd number of records' do
       expect(preservation_events.count).to eq 1
       expect(file_sets.count).to eq 1

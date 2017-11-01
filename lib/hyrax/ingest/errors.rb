@@ -173,6 +173,14 @@ module Hyrax
           super("Unknown column header for: #{invalid_column}.")
         end
       end
+
+      class ConfigurationError < Hyrax::Ingest::Error; end
+
+      class InvalidActiveFedoraPropertyValue < Hyrax::Ingest::Error
+        def initialize(value, property_name, rdf_predicate)
+          super("Could not assign '#{value}' to property #{property_name} (with RDF predicate '#{rdf_predicate}')")
+        end
+      end
     end
   end
 end

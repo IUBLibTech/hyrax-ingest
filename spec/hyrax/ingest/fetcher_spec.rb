@@ -4,7 +4,6 @@ require 'hyrax/ingest/sip'
 require 'hyrax/ingest/reporting'
 
 RSpec.describe Hyrax::Ingest::Fetcher do
-
   describe '.find_class_by_name' do
     before do
       # Create a couple of test fetcher classses with the same base name,

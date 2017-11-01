@@ -2,7 +2,6 @@ require 'hyrax_helper'
 require 'hyrax/ingest/ingester'
 
 RSpec.describe Hyrax::Ingest::Ingester do
-
   describe '.default_registered_classes' do
     subject { described_class.default_registered_classes }
     it { is_expected.to include Hyrax::Ingest::Ingester::ActiveFedoraBaseIngester }

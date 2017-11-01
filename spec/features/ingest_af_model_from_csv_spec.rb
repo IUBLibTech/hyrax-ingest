@@ -22,7 +22,6 @@ RSpec.describe "Ingesting an ActiveFedora model from CSV" do
 
 
   context "with config from ingest_active_fedora_model_from_csv.yml" do
-
     it 'ingests the model with metadata' do
       expect(MyModel.where(title: "Test Title 1").count).to eq 1
     end

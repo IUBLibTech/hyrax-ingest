@@ -16,10 +16,6 @@ RSpec.describe "Ingesting a FileSet containing a File with an external URL" do
 
     let(:ingested_file_set) { FileSet.where(title: "Example FileSet").first }
 
-    it "does not have any errors" do
-      expect(@runner.errors).to be_empty
-    end
-
     it 'results in the FileSet having just one file' do
       expect(ingested_file_set.files.size).to eq 1
     end

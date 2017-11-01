@@ -7,12 +7,16 @@ module Hyrax
       class Literal < Base
         attr_reader :literal_value
 
-        def initialize(literal_value='')
-          @literal_value = literal_value
+        inherit_callbacks_for :fetch
+
+        def initialize(options={})
+          options = { value: options } unless options.is_a? Hash
+          @literal_value = options.delete(:value)
+          super
         end
 
         def fetch
-          literal_value
+          @fetched_value = literal_value
         end
       end
     end

@@ -16,10 +16,6 @@ RSpec.describe "Ingesting a Hyrax::Preservation::Event" do
     let(:all_preservation_events) { Hyrax::Preservation::Event.all }
     let(:preservation_event) { all_preservation_events.first }
 
-    it "does not have any errors" do
-      expect(@runner.errors).to be_empty
-    end
-
     it 'ingests the correct number of Hyrax::Preservation::Event models' do
       expect(all_preservation_events.count).to eq 1
     end

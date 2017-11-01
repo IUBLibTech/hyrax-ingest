@@ -9,14 +9,18 @@ module Hyrax
   module Ingest
     module Fetcher
       class PremisEventType < Base
+        inherit_callbacks_for :fetch
+
         attr_reader :abbr
 
-        def initialize(abbr='')
-          @abbr = abbr
+        def initialize(options={})
+          options = { abbr: options } unless options.is_a? Hash
+          @abbr = options.delete(:abbr)
+          super
         end
 
         def fetch
-          Hyrax::Preservation::PremisEventType.find_by_abbr(@abbr).uri
+          @fetched_value ||= Hyrax::Preservation::PremisEventType.find_by_abbr(@abbr).uri
         end
       end
     end
