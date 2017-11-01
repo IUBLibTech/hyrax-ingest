@@ -6,7 +6,7 @@ module Hyrax
   module Ingest
     module Fetcher
       class XMLFile < Base
-        attr_reader :filename, :xpath
+        attr_reader :filename, :xpath, :default
 
         include HasSIP
 
@@ -15,11 +15,15 @@ module Hyrax
           raise ArgumentError, "Required option :xpath is missing" unless options.key?(:xpath)
           @filename = options[:filename]
           @xpath = options[:xpath]
+          @default = options[:default]
         end
 
         def fetch
           # TODO: log a warning in the event of empty results.
-          noko.xpath(xpath).map(&:text)
+          fetched = noko.xpath(xpath).map(&:text)
+          return fetched if fetched.present?
+          return default if default.present?
+          return []
         end
 
         private
