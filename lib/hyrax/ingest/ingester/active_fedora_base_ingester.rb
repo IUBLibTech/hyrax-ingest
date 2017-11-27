@@ -10,12 +10,13 @@ module Hyrax
     module Ingester
       class ActiveFedoraBaseIngester < Base
 
-        attr_reader :af_model_class_name, :properties_config
+        attr_reader :af_model_class_name, :properties_config, :update_params
 
         def initialize(sip, config={})
           raise ArgumentError, "Option :af_model_class_name is required" unless config.key?(:af_model_class_name)
           @af_model_class_name = config.delete(:af_model_class_name).to_s
           @properties_config = config.delete(:properties) || []
+          @update_params = config.delete(:update)
           super(sip)
         end
 
@@ -29,12 +30,7 @@ module Hyrax
         end
 
         def af_model
-          begin
-            af_model_class = Object.const_get(af_model_class_name.to_s)
-          rescue NameError => e
-            raise Hyrax::Ingest::Errors::UnknownActiveFedoraModel.new(af_model_class_name)
-          end
-          @af_model ||= af_model_class.new
+          @af_model ||= new_or_existing_af_model
         end
 
         protected
@@ -56,6 +52,37 @@ module Hyrax
           end
 
         private
+
+          def af_model_class
+            Object.const_get(af_model_class_name.to_s)
+          rescue NameError => e
+            raise Hyrax::Ingest::Errors::UnknownActiveFedoraModel.new(af_model_class_name)
+          end
+
+          def new_or_existing_af_model
+            if where_clause
+              af_model_class.where(where_clause).first
+            else
+              af_model_class.new
+            end
+          end
+
+          def where_clause
+            return unless update_params
+            {}.tap do |where_clause|
+              update_params.each do |field, from_params|
+                where_clause[field] = begin
+                  fetcher_class_name = from_params[:from].keys.first
+                  fetcher_options = from_params[:from].values.first
+                  fetcher = Hyrax::Ingest::Fetcher.factory(fetcher_class_name, sip, fetcher_options)
+                  value = fetcher.fetch
+                  # Cast to string unless value is an array
+                  value = value.to_s unless value.respond_to? :each
+                  value
+                end
+              end
+            end
+          end
 
           def property_assigners
             @property_assigners ||= properties_config.map do |property_config|
