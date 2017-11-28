@@ -5,6 +5,7 @@ require 'hyrax/ingest/sip'
 RSpec.describe Hyrax::Ingest::Ingester::ActiveFedoraBaseIngester do
 
   let(:example_sip) { Hyrax::Ingest::SIP.new(path: fixture_path) }
+  let(:shared_sip) { nil }
   let(:af_model_class_name) { 'TestActiveFedoraModel' }
   let(:properties_config) do
     {
@@ -18,7 +19,7 @@ RSpec.describe Hyrax::Ingest::Ingester::ActiveFedoraBaseIngester do
     }
   end
 
-  subject { described_class.new(example_sip, af_model_class_name: af_model_class_name, properties_config: properties_config) }
+  subject { described_class.new(example_sip, shared_sip, af_model_class_name: af_model_class_name, properties_config: properties_config) }
 
   before do
     class TestActiveFedoraModel < ActiveFedora::Base; end

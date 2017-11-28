@@ -6,9 +6,10 @@ module Hyrax
       class RdfUri < Base
         attr_reader :uri_str
 
-        def initialize(sip, uri_str='')
+        def initialize(sip, shared_sip, uri_str='')
+          raise ArgumentError, "RdfUri cannot have a shared sip." unless shared_sip.nil?
           @uri_str = uri_str
-          super(sip)
+          super(sip, shared_sip)
         end
 
         def fetch

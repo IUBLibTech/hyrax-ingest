@@ -25,7 +25,7 @@ RSpec.describe "Ingesting a Work containing a FileSet" do
     end
 
     it 'ingests metadata for the FileSet' do
-      expect(ingested_work.file_sets.first&.title.first).to eq "FileSet Title"
+      expect(ingested_work.file_sets.first.title.first).to eq "FileSet Title"
     end
   end
 end

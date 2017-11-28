@@ -1,0 +1,15 @@
+---
+ingest:
+  - ActiveFedoraBase:
+      af_model_class_name: MyModel
+      properties:
+        - rdf_predicate: http://example.org#title
+          iteration:
+            XMLFile:
+              filename: shared_sip.xml
+              xpath: /path/to/title
+        - rdf_predicate: http://example.org#description
+          from:
+            XMLFile:
+              filename: /sip_\d{1}.xml/
+              xpath: /path/to/description

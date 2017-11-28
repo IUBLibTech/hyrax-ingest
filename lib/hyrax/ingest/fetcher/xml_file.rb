@@ -7,12 +7,12 @@ module Hyrax
       class XMLFile < Base
         attr_reader :filename, :xpath
 
-        def initialize(sip, options={})
+        def initialize(sip, shared_sip, options={})
           raise ArgumentError, "Required option :filename is missing" unless options.key?(:filename)
           raise ArgumentError, "Required option :xpath is missing" unless options.key?(:xpath)
           @filename = options[:filename]
           @xpath = options[:xpath]
-          super(sip)
+          super(sip, shared_sip)
         end
 
         def fetch
@@ -44,11 +44,26 @@ module Hyrax
             @xml
           end
 
+          def shared_xml
+            @shared_xml ||= begin
+              file = shared_sip.files.find { |file| File.basename(file) == filename }
+              raise Hyrax::Ingest::Errors::FileNotFoundInSIP.new(filename) unless file
+              file.read
+            end
+            file.rewind if file
+            @shared_xml
+          end
+
           def noko
             @noko ||= begin
-              n = Nokogiri::XML(xml)
+              n = !is_shared_file? ? Nokogiri::XML(xml) : Nokogiri::XML(shared_xml)
               n.remove_namespaces!
             end
+          end
+
+          def is_shared_file?
+            return false if shared_sip.nil? || filename != File.basename(shared_sip.files.first)
+            true
           end
       end
     end

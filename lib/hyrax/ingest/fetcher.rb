@@ -26,8 +26,8 @@ module Hyrax
         #   and the value is the hash of options to pass to the constructor of the fetcher
         #   class.
         # @return An instance of the fetcher class.
-        def factory(class_name, sip, options={})
-          find_class_by_name(class_name).new(sip, options)
+        def factory(class_name, sip, shared_sip, options={})
+          find_class_by_name(class_name).new(sip, shared_sip, options)
         end
 
         # @param [String] class_name The stringified class name, with our

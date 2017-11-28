@@ -8,10 +8,10 @@ module Hyrax
 
         attr_reader :premis_event_related_object
 
-        def initialize(sip, config={})
+        def initialize(sip, shared_sip, config={})
           config[:af_model_class_name] ||= 'Hyrax::Preservation::Event'
           @premis_event_related_object = config.delete(:premis_event_related_object)
-          super(sip, config)
+          super(sip, shared_sip, config)
         end
 
         def run!
