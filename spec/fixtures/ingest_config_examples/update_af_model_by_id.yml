@@ -1,0 +1,12 @@
+---
+ingest:
+  - ActiveFedoraBase:
+      af_model_class_name: MyModel
+      update:
+        id:
+          from:
+            Literal: 123
+      properties:
+        - rdf_predicate: http://example.org#title
+          from:
+            Literal: 'updated title'
