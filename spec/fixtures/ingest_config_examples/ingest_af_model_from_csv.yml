@@ -1,0 +1,15 @@
+---
+ingest:
+  - ActiveFedoraBase:
+      af_model_class_name: MyModel
+      properties:
+        - rdf_predicate: http://example.org#title
+          from:
+            CSVFile:
+              filename: metadata.csv
+              column: Title
+        - rdf_predicate: http://example.org#description
+          from:
+            CSVFile:
+              filename: metadata.csv
+              column: Description

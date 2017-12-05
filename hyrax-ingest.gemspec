@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "hyrax", "~> 1.0.3"
   s.add_dependency "minitar"
   s.add_dependency "nokogiri"
+  s.add_dependency "roo", "~> 2.7.0"
   s.add_dependency 'hyrax-preservation'
 
   s.add_development_dependency "sqlite3"
