@@ -7,12 +7,13 @@ module Hyrax
       class YAMLFile < Base
         attr_reader :filename, :yaml_path
 
-        def initialize(sip, options={})
+        def initialize(sip, shared_sip, options={})
           raise ArgumentError, "Required option :filename is missing" unless options.key?(:filename)
           raise ArgumentError, "Required option :yaml_path is missing" unless options.key?(:yaml_path)
+          raise ArgumentError, "YAMLFile cannot have a shared sip." unless shared_sip.nil?
           @filename = options[:filename]
           @yaml_path = options[:yaml_path]
-          super(sip)
+          super(sip, shared_sip)
         end
 
         def fetch

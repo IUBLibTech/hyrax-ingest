@@ -5,8 +5,9 @@ module Hyrax
   module Ingest
     class BatchRunner
       include Reporting
-      def initialize(config_file_path:, sip_paths:)
+      def initialize(config_file_path:, sip_paths:, shared_sip_path: nil)
         @sip_paths = sip_paths
+        @shared_sip_path = shared_sip_path
         @config_file_path = config_file_path
       end
 
@@ -24,7 +25,7 @@ module Hyrax
 
         def runners
           @runners ||= @sip_paths.map do |sip_path|
-            Hyrax::Ingest::Runner.new(config_file_path: @config_file_path, source_files_path: sip_path)
+            Hyrax::Ingest::Runner.new(config_file_path: @config_file_path, source_files_path: sip_path, shared_file_path: @shared_sip_path)
           end
         end
     end

@@ -10,14 +10,14 @@ module Hyrax
     module Ingester
       class ActiveFedoraBaseIngester < Base
 
-        attr_reader :af_model_class_name, :properties_config, :update_params
+        attr_reader :af_model_class_name, :properties_config, :update_params, :shared_sip
 
-        def initialize(sip, config={})
+        def initialize(sip, shared_sip, config={})
           raise ArgumentError, "Option :af_model_class_name is required" unless config.key?(:af_model_class_name)
           @af_model_class_name = config.delete(:af_model_class_name).to_s
           @properties_config = config.delete(:properties) || []
           @update_params = config.delete(:update)
-          super(sip)
+          super(sip, shared_sip)
         end
 
         def run!
@@ -74,7 +74,7 @@ module Hyrax
                 where_clause[field] = begin
                   fetcher_class_name = from_params[:from].keys.first
                   fetcher_options = from_params[:from].values.first
-                  fetcher = Hyrax::Ingest::Fetcher.factory(fetcher_class_name, sip, fetcher_options)
+                  fetcher = Hyrax::Ingest::Fetcher.factory(fetcher_class_name, sip, shared_sip,fetcher_options)
                   value = fetcher.fetch
                   # Cast to string unless value is an array
                   value = value.to_s unless value.respond_to? :each
@@ -86,12 +86,13 @@ module Hyrax
 
           def property_assigners
             @property_assigners ||= properties_config.map do |property_config|
-              fetcher_class_name = property_config[:from].keys.first
-              fetcher_class_options = property_config[:from].values.first
+
+              fetcher_class_name = property_uses_shared_resource?(property_config) ? property_config[:iteration].keys.first : property_config[:from].keys.first
+              fetcher_class_options = property_uses_shared_resource?(property_config) ? property_config[:iteration].values.first : property_config[:from].values.first
 
               property_assigner_options = {
                 rdf_predicate: property_config[:rdf_predicate],
-                fetcher: Hyrax::Ingest::Fetcher.factory(fetcher_class_name, sip, fetcher_class_options),
+                fetcher: Hyrax::Ingest::Fetcher.factory(fetcher_class_name, sip, shared_sip, fetcher_class_options),
                 af_model: af_model
               }
 
@@ -103,6 +104,11 @@ module Hyrax
 
               ActiveFedoraPropertyAssigner.new(property_assigner_options)
             end
+          end
+
+          def property_uses_shared_resource?(property_config)
+            return true if property_config.has_key?(:iteration)
+            false
           end
       end
     end

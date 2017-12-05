@@ -9,7 +9,7 @@ RSpec.describe "Updating an ActiveFedora model" do
     end
   end
 
-  context "with config from update_af_model_by_id.yml" do
+  context "with config from update_af_model_by_id.yml", :clean_fedora do
 
     before do
       MyModel.new.tap do |model|

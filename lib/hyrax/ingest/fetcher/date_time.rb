@@ -8,9 +8,10 @@ module Hyrax
       class DateTime < Base
         attr_reader :date_time_method
 
-        def initialize(sip, date_time_method='')
+        def initialize(sip, shared_sip, date_time_method='')
+          raise ArgumentError, "DateTime cannot have a shared sip." unless shared_sip.nil?
           @date_time_method = date_time_method.to_sym
-          super(sip)
+          super(sip, shared_sip)
         end
 
         def fetch

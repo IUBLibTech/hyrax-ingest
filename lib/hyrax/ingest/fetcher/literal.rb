@@ -7,9 +7,10 @@ module Hyrax
       class Literal < Base
         attr_reader :literal_value
 
-        def initialize(sip, literal_value='')
+        def initialize(sip, shared_sip, literal_value='')
+          raise ArgumentError, "Literal cannot have a shared sip." unless shared_sip.nil?
           @literal_value = literal_value
-          super(sip)
+          super(sip, shared_sip)
         end
 
         def fetch

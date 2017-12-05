@@ -11,9 +11,10 @@ module Hyrax
       class PremisEventType < Base
         attr_reader :abbr
 
-        def initialize(sip, abbr='')
+        def initialize(sip, shared_sip, abbr='')
+          raise ArgumentError, "PremisEventType cannot have a shared sip." unless shared_sip.nil?
           @abbr = abbr
-          super(sip)
+          super(sip, shared_sip)
         end
 
         def fetch
