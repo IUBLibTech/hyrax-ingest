@@ -144,6 +144,12 @@ module Hyrax
           super("Invalid reporting config options: #{invalid_options.join(', ')}")
         end
       end
+
+      class MissingCsvColumn < Hyrax::Ingest::Error
+        def initialize(invalid_column)
+          super("Unknown column header for: #{invalid_column}.")
+        end
+      end
     end
   end
 end

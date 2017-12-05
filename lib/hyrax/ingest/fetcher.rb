@@ -1,5 +1,6 @@
 require 'hyrax/ingest/fetcher/xml_file'
 require 'hyrax/ingest/fetcher/yaml_file'
+require 'hyrax/ingest/fetcher/csv_file'
 require 'hyrax/ingest/fetcher/literal'
 require 'hyrax/ingest/fetcher/premis_event_type'
 require 'hyrax/ingest/fetcher/rdf_uri'
@@ -15,6 +16,7 @@ module Hyrax
           @all_classes ||= Set.new.tap do |all_classes|
             all_classes << Hyrax::Ingest::Fetcher::XMLFile
             all_classes << Hyrax::Ingest::Fetcher::YAMLFile
+            all_classes << Hyrax::Ingest::Fetcher::CSVFile
             all_classes << Hyrax::Ingest::Fetcher::Literal
             all_classes << Hyrax::Ingest::Fetcher::PremisEventType
             all_classes << Hyrax::Ingest::Fetcher::RdfUri
