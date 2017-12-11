@@ -1,17 +1,16 @@
 require 'hyrax/ingest/reporting'
+require 'hyrax/ingest/has_sip'
+require 'hyrax/ingest/has_shared_sip'
+require 'hyrax/ingest/has_iteration'
 
 module Hyrax
   module Ingest
     module Ingester
       class Base
         include Reporting
-
-        attr_reader :sip
-        def initialize(sip, shared_sip)
-          raise Hyrax::Ingest::Errors::InvalidSIP.new(sip) unless sip.is_a? Hyrax::Ingest::SIP
-          @sip = sip
-          @shared_sip = shared_sip
-        end
+        include HasSIP
+        include HasSharedSIP
+        include HasIteration
 
         # no-op, meant to be overrriden
         def run!; end

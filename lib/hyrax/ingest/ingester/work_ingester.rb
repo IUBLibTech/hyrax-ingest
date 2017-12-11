@@ -7,11 +7,11 @@ module Hyrax
       class WorkIngester < ActiveFedoraBaseIngester
         attr_reader :file_sets_config
 
-        def initialize(sip, shared_sip, config={})
+        def initialize(config={})
           # TODO: Throw a useful custom error when :type option is missing.
           config[:af_model_class_name] ||= config.delete(:type)
           @file_sets_config = config.delete(:FileSets) || []
-          super(sip, shared_sip, config)
+          super(config)
         end
 
         def run!
@@ -37,7 +37,11 @@ module Hyrax
 
           def file_set_ingesters
             @file_set_ingesters ||= @file_sets_config.map do |file_set_config|
-              Hyrax::Ingest::Ingester::FileSetIngester.new(sip, shared_sip, file_set_config)
+              Hyrax::Ingest::Ingester::FileSetIngester.new(file_set_config).tap do |file_set_ingester|
+                file_set_ingester.sip = sip if file_set_ingester.respond_to?(:sip=)
+                file_set_ingester.shared_sip = shared_sip if file_set_ingester.respond_to?(:shared_sip=)
+                file_set_ingester.iteration = iteration if file_set_ingester.respond_to?(:iteration=)
+              end
             end
           end
       end

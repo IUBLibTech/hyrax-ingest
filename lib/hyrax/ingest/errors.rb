@@ -61,7 +61,13 @@ module Hyrax
 
       class InvalidFetcher < Hyrax::Ingest::Error
         def initialize(class_name)
-          super("Invalid transformer '#{class_name}'; Fetcher objects must extend Hyrax::Ingest::Fetcher::Base.")
+          super("Invalid fetcher '#{class_name}'; Fetcher objects must extend Hyrax::Ingest::Fetcher::Base.")
+        end
+      end
+
+      class MissingConfigOptions < Hyrax::Ingest::Error
+        def initialize(config_options)
+          super("Missing config options: '#{config_options.join(', ')}'")
         end
       end
 

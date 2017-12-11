@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'hyrax/ingest/sip.rb'
+require 'pry'
 
 RSpec.describe Hyrax::Ingest::SIP do
   describe '.new' do
@@ -18,6 +19,33 @@ RSpec.describe Hyrax::Ingest::SIP do
         expect(subject.files.count).to eq 1
         expect(subject.files.first).to be_a File
         expect(File.basename(subject.files.first)).to eq 'fits_example_1.xml'
+      end
+    end
+  end
+
+  describe '#find_file' do
+    subject { described_class.new(path: "#{fixture_path}/sip_examples/fits_example_1.xml")}
+    context 'when given an exact filename' do
+      it 'returns the file' do
+        expect(subject.find_file('fits_example_1.xml')).to be_a File
+      end
+    end
+
+    context 'when given a regex as a string' do
+      it 'returns the file' do
+        expect(subject.find_file('/^fits_/')).to be_a File
+      end
+    end
+
+    context 'when given a Regexp object' do
+      it 'returns the file' do
+        expect(subject.find_file(/^fits_/)).to be_a File
+      end
+    end
+
+    context "when given a string that doesn't match any filename in the SIP" do
+      it 'raises a FileNotFoundInSIP error' do
+        expect { subject.find_file('not in the sip') }.to raise_error Hyrax::Ingest::Errors::FileNotFoundInSIP
       end
     end
   end
