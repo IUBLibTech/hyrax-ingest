@@ -6,7 +6,7 @@ RSpec.describe "Ingesting a Work containing a FileSet" do
   before do
     @runner = Hyrax::Ingest::Runner.new(
       config_file_path: "#{fixture_path}/ingest_config_examples/ingest_work_with_file_set.yml",
-      source_files_path: "#{fixture_path}/sip_examples/ingest_work_with_file_set"
+      sip_path: "#{fixture_path}/sip_examples/ingest_work_with_file_set"
     )
 
     @runner.run!

@@ -10,7 +10,7 @@ RSpec.describe "Updating an ActiveFedora model" do
   end
 
   context "with config from update_af_model_by_id.yml", :clean_fedora do
-
+    let(:config_file_path) { "#{fixture_path}/ingest_config_examples/update_af_model_by_id.yml" }
     before do
       MyModel.new.tap do |model|
         model.id = '123'
@@ -18,10 +18,7 @@ RSpec.describe "Updating an ActiveFedora model" do
         model.save!
       end
 
-      Hyrax::Ingest::Runner.new(
-        config_file_path: "#{fixture_path}/ingest_config_examples/update_af_model_by_id.yml",
-        source_files_path: "#{fixture_path}/sip_examples/empty_sip"
-      ).run!
+      Hyrax::Ingest::Runner.new(config_file_path: config_file_path).run!
     end
 
     it 'updates the model' do

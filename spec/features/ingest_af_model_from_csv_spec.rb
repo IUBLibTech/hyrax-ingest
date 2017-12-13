@@ -14,7 +14,7 @@ RSpec.describe "Ingesting an ActiveFedora model from CSV" do
 
     @runner = Hyrax::Ingest::Runner.new(
       config_file_path: "#{fixture_path}/ingest_config_examples/ingest_af_model_from_csv.yml",
-      source_files_path: "#{fixture_path}/sip_examples/ingest_af_model_from_csv"
+      sip_path: "#{fixture_path}/sip_examples/ingest_af_model_from_csv"
     )
 
     @runner.run!

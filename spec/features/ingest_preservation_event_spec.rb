@@ -3,13 +3,11 @@ require 'hyrax/ingest/runner'
 # require 'hyrax/preservation/event'
 
 RSpec.describe "Ingesting a Hyrax::Preservation::Event" do
-  before do
-    @runner = Hyrax::Ingest::Runner.new(
-      config_file_path: "#{fixture_path}/ingest_config_examples/ingest_preservation_event.yml",
-      # dummy path required until path is made optional.
-      source_files_path: "#{fixture_path}"
-    )
 
+  let(:config_file_path) { "#{fixture_path}/ingest_config_examples/ingest_preservation_event.yml" }
+
+  before do
+    @runner = Hyrax::Ingest::Runner.new(config_file_path: config_file_path)
     @runner.run!
   end
 

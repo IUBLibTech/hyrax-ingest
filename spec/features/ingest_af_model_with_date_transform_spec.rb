@@ -12,7 +12,7 @@ describe 'Ingest of ActiveFedora model with date transformation' do
       end
     end
 
-    Hyrax::Ingest::Runner.new(config_file_path: "#{fixture_path}/ingest_config_examples/ingest_af_model_with_date_transform.yml", source_files_path: fixture_path).run!
+    Hyrax::Ingest::Runner.new(config_file_path: "#{fixture_path}/ingest_config_examples/ingest_af_model_with_date_transform.yml", sip_path: fixture_path).run!
   end
 
   let(:ingested_record) { MyModel.all.first }
