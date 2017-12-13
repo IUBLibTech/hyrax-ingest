@@ -9,8 +9,6 @@ RSpec.describe Hyrax::Ingest::Ingester::WorkIngester do
   end
 
   describe '#run!' do
-    let(:example_sip) { Hyrax::Ingest::SIP.new(path: fixture_path) }
-    let(:shared_sip) { nil }
     let(:example_config) {
       {
         type: 'ExampleWork',
@@ -29,7 +27,7 @@ RSpec.describe Hyrax::Ingest::Ingester::WorkIngester do
       }
     }
 
-    subject { described_class.new(example_sip, shared_sip, example_config) }
+    subject { described_class.new(example_config) }
 
     it 'calls assign_properties!' do
       expect(subject).to receive(:assign_properties!).ordered.exactly(1).times

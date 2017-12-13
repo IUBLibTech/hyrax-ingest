@@ -14,7 +14,8 @@ RSpec.describe "Ingesting ActiveFedora models with shared source" do
     @runner = Hyrax::Ingest::BatchRunner.new(
       config_file_path: "#{fixture_path}/ingest_config_examples/ingest_af_models_with_shared_xml_source_spec.yml",
       sip_paths: Dir.glob("#{fixture_path}/sip_examples/ingest_af_models_with_shared_xml_source/not_shared/*"),
-      shared_sip_path: "#{fixture_path}/sip_examples/ingest_af_models_with_shared_xml_source/shared/shared_sip.xml"
+      shared_sip_path: "#{fixture_path}/sip_examples/ingest_af_models_with_shared_xml_source/shared/shared_sip.xml",
+      iterations: 2
     )
 
     @runner.run!

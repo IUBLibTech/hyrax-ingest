@@ -7,11 +7,11 @@ module Hyrax
       class FileSetIngester < ActiveFedoraBaseIngester
         attr_reader :files_config, :preservation_events_config
 
-        def initialize(sip, shared_sip, config={})
+        def initialize(config={})
           @files_config = config.delete(:Files) || []
           @preservation_events_config = config.delete(:PreservationEvents) || []
           config[:af_model_class_name] ||= 'FileSet'
-          super(sip, shared_sip, config)
+          super(config)
         end
 
         def run!
@@ -50,7 +50,11 @@ module Hyrax
           def preservation_event_ingesters
             preservation_event_ingesters ||= preservation_events_config.map do |preservation_event_config|
               preservation_event_config[:premis_event_related_object] = af_model
-              Hyrax::Ingest::Ingester::PreservationEventIngester.new(sip, shared_sip, preservation_event_config)
+              Hyrax::Ingest::Ingester::PreservationEventIngester.new(preservation_event_config).tap do |preservation_event_ingester|
+                preservation_event_ingester.sip = sip if preservation_event_ingester.respond_to?(:sip=)
+                preservation_event_ingester.shared_sip = shared_sip if preservation_event_ingester.respond_to?(:shared_sip=)
+                preservation_event_ingester.iteration = iteration if preservation_event_ingester.respond_to?(:iteration=)
+              end
             end
           end
       end

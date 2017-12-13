@@ -28,7 +28,55 @@ module Hyrax
         @files = nil
       end
 
+      # @param [String, Regexp] filename A string, a Regexp, or a string representation of a regex
+      # @return [File] The file from the SIP that matches the param.
+      def find_file(filename)
+        file = find_file_by_regex(filename) || find_file_by_name(filename)
+        raise Hyrax::Ingest::Errors::FileNotFoundInSIP.new(filename) unless file
+        File.new(file.path)
+      end
+
+      # Reads the content of a file from the SIP, and automatically rewinds it
+      # so it can be read again.
+      # @param [String, Regexp] filename A string, a Regexp, or a string representation of a regex
+      # @return [String] The contents of the matched file
+      def read_file(filename)
+        File.read(find_file(filename).path)
+        # file = find_file(filename)
+        # file_contents = file.read
+        # file.rewind
+        # file_contents
+      end
+
       private
+
+        # @param [String, Regexp] regex Either a Regexp object or a string
+        #   beginning and ending in forward slashes, that can be converted to
+        #   a regex.
+        # @return [File] The file that matches regex as a regular expression;
+        #   nil if no file matches 'regex', or if 'regex' cannot be used as a
+        #   regular expression.
+        def find_file_by_regex(regex)
+          # If 'regex' is a string beginning and ending in slash, convert it to
+          # a Regexp.
+          regex = Regexp.new(regex.to_s[1..-2]) if regex.to_s =~ /^\/.*\/$/
+          files.find { |file| File.basename(file) =~ regex } if regex.is_a? Regexp
+        end
+
+        # @param [String] filename The name of the file within the SIP you want
+        #   to return.
+        # @return [File] The file that matches the 'filename' parameter; nil if
+        #   no file matches the 'filename'.
+        def find_file_by_name(filename)
+          files.find { |file| File.basename(file) == filename }
+        end
+
+        # @param [String, Regexp] str The string to test and see if it is a regex.
+        # @return [Boolean] True param begins and ends in a forward slash.
+        def is_a_regex?(str)
+          filename.to_s[0] == '/' && filename.to_s[-1] == '/'
+        end
+
 
         # @return Array An Array containing the one and only file pointed to by #path
         def single_file

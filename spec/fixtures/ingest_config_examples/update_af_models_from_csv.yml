@@ -2,16 +2,26 @@
 ingest:
   - ActiveFedoraBase:
       af_model_class_name: MyModel
+      update:
+        id:
+          from:
+            CSVFile:
+              shared: true
+              filename: metadata.csv
+              column: ID
+              row: next
       properties:
         - rdf_predicate: http://example.org#title
           from:
             CSVFile:
+              shared: true
               filename: metadata.csv
               column: Title
-              row: 1
+              row: next
         - rdf_predicate: http://example.org#description
           from:
             CSVFile:
+              shared: true
               filename: metadata.csv
               column: Description
-              row: 1
+              row: next

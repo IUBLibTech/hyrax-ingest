@@ -12,12 +12,11 @@ module Hyrax
 
         attr_reader :af_model_class_name, :properties_config, :update_params, :shared_sip
 
-        def initialize(sip, shared_sip, config={})
+        def initialize(config={})
           raise ArgumentError, "Option :af_model_class_name is required" unless config.key?(:af_model_class_name)
           @af_model_class_name = config.delete(:af_model_class_name).to_s
           @properties_config = config.delete(:properties) || []
           @update_params = config.delete(:update)
-          super(sip, shared_sip)
         end
 
         def run!
@@ -72,10 +71,7 @@ module Hyrax
             {}.tap do |where_clause|
               update_params.each do |field, from_params|
                 where_clause[field] = begin
-                  fetcher_class_name = from_params[:from].keys.first
-                  fetcher_options = from_params[:from].values.first
-                  fetcher = Hyrax::Ingest::Fetcher.factory(fetcher_class_name, sip, shared_sip,fetcher_options)
-                  value = fetcher.fetch
+                  value = create_fetcher_from_config(from_params[:from]).fetch
                   # Cast to string unless value is an array
                   value = value.to_s unless value.respond_to? :each
                   value
@@ -86,13 +82,9 @@ module Hyrax
 
           def property_assigners
             @property_assigners ||= properties_config.map do |property_config|
-
-              fetcher_class_name = property_uses_shared_resource?(property_config) ? property_config[:iteration].keys.first : property_config[:from].keys.first
-              fetcher_class_options = property_uses_shared_resource?(property_config) ? property_config[:iteration].values.first : property_config[:from].values.first
-
               property_assigner_options = {
                 rdf_predicate: property_config[:rdf_predicate],
-                fetcher: Hyrax::Ingest::Fetcher.factory(fetcher_class_name, sip, shared_sip, fetcher_class_options),
+                fetcher: create_fetcher_from_config(property_config[:from]),
                 af_model: af_model
               }
 
@@ -106,9 +98,20 @@ module Hyrax
             end
           end
 
-          def property_uses_shared_resource?(property_config)
-            return true if property_config.has_key?(:iteration)
-            false
+          def create_fetcher_from_config(fetcher_config)
+            fetcher_class_name = fetcher_config.keys.first
+            fetcher_class_options = fetcher_config.values.first
+            Hyrax::Ingest::Fetcher.factory(fetcher_class_name, fetcher_class_options).tap do |fetcher|
+              if fetcher.respond_to?(:sip=)
+                fetcher.sip = use_shared_sip?(fetcher_config[fetcher_class_name]) ? shared_sip : sip
+              end
+              fetcher.iteration = iteration if fetcher.respond_to? :iteration=
+            end
+          end
+
+          def use_shared_sip?(config)
+            truthy_vals = ['1', 'true', 'TRUE', 'True', 'yes', true]
+            return truthy_vals.include? config[:shared]
           end
       end
     end

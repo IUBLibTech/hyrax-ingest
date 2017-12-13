@@ -47,8 +47,8 @@ module Hyrax
         # @param [Hash] options The hash that will get passed to the
         #   constructor of the Ingester class.
         # @return An instance of the Ingester class.
-        def factory(ingester_name, sip, shared_sip, options={})
-          find_class_by_name(ingester_name).new(sip, shared_sip, options)
+        def factory(ingester_name, options={})
+          find_class_by_name(ingester_name).new(options)
         end
 
         private

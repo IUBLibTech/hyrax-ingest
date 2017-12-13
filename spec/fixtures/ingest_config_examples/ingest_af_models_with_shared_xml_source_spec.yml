@@ -4,8 +4,9 @@ ingest:
       af_model_class_name: MyModel
       properties:
         - rdf_predicate: http://example.org#title
-          iteration:
+          from:
             XMLFile:
+              shared: true
               filename: shared_sip.xml
               xpath: /path/to/title
         - rdf_predicate: http://example.org#description
