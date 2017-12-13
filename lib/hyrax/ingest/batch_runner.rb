@@ -34,7 +34,7 @@ module Hyrax
 
         def runners
           @runners ||= (0...iterations).map do |iteration|
-            Hyrax::Ingest::Runner.new(config_file_path: @config_file_path, source_files_path: @sip_paths[iteration], shared_file_path: @shared_sip_path, iteration: iteration)
+            Hyrax::Ingest::Runner.new(config_file_path: @config_file_path, sip_path: @sip_paths[iteration], shared_file_path: @shared_sip_path, iteration: iteration)
           end
         end
     end

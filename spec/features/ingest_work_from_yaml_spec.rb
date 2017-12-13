@@ -7,7 +7,7 @@ RSpec.describe "Ingesting a Work from YAML" do
     before do
       @runner = Hyrax::Ingest::Runner.new(
         config_file_path: "#{fixture_path}/ingest_config_examples/ingest_work_from_yaml.yml",
-        source_files_path: "#{fixture_path}/sip_examples/ingest_work_from_yaml/sip"
+        sip_path: "#{fixture_path}/sip_examples/ingest_work_from_yaml/sip"
       )
 
       @runner.run!

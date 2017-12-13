@@ -16,8 +16,8 @@ module Hyrax
       include HasSharedSIP
       include HasIteration
 
-      def initialize(config_file_path:, source_files_path: nil, shared_file_path: nil, iteration: 0)
-        self.sip = SIP.new(path: source_files_path) if source_files_path
+      def initialize(config_file_path:, sip_path: nil, shared_file_path: nil, iteration: 0)
+        self.sip = SIP.new(path: sip_path) if sip_path
         self.shared_sip = shared_file_path != nil ? SIP.new(path: shared_file_path) : nil
         self.iteration = iteration.to_i
         @config = Hyrax::Ingest::Configuration.new(config_file_path: config_file_path)
@@ -25,7 +25,7 @@ module Hyrax
 
       def run!
         ingesters.collect { |ingester| ingester.run! }
-        sip.close_all_files
+        sip.close_all_files if sip
       end
 
       def errors

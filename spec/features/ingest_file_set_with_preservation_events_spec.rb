@@ -4,13 +4,12 @@ require 'file_set'
 
 RSpec.describe "Ingesting a FileSet with Preservation Events" do
 
-  before do
-    @runner = Hyrax::Ingest::Runner.new(
-      config_file_path: "#{fixture_path}/ingest_config_examples/ingest_file_set_with_preservation_events.yml",
-      # dummy path required until it's optional.
-      source_files_path: "#{fixture_path}"
-    )
+  let(:config_file_path) { "#{fixture_path}/ingest_config_examples/ingest_file_set_with_preservation_events.yml" }
+  # NOTE: We re-use an example SIP here
+  let(:sip_path) { "#{fixture_path}/sip_examples/ingest_file_set_from_xml" }
 
+  before do
+    @runner = Hyrax::Ingest::Runner.new(config_file_path: config_file_path, sip_path: sip_path)
     @runner.run!
   end
 

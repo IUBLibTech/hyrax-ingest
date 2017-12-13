@@ -4,7 +4,7 @@ require 'hyrax/ingest/ingester/base'
 
 RSpec.describe Hyrax::Ingest::Runner do
   # let(:fake_config) { instance_double Hyrax::Ingest::Configuration }
-  subject { described_class.new(config_file_path: "#{fixture_path}/ingest_config_examples/blank_config.yml", source_files_path: fixture_path) }
+  subject { described_class.new(config_file_path: "#{fixture_path}/ingest_config_examples/blank_config.yml") }
 
   # before do
   #   # Need to explicitly allow the mocked object to receive all method calls

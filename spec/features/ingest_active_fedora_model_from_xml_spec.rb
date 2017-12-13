@@ -14,7 +14,7 @@ RSpec.describe "Ingesting an ActiveFedora model from XML" do
 
     @runner = Hyrax::Ingest::Runner.new(
       config_file_path: "#{fixture_path}/ingest_config_examples/ingest_active_fedora_model_from_xml.yml",
-      source_files_path: "#{fixture_path}/sip_examples/ingest_active_fedora_model_from_xml"
+      sip_path: "#{fixture_path}/sip_examples/ingest_active_fedora_model_from_xml"
     )
 
     @runner.run!

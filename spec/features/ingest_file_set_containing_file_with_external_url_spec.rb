@@ -7,7 +7,7 @@ RSpec.describe "Ingesting a FileSet containing a File with an external URL" do
   before do
     @runner = Hyrax::Ingest::Runner.new(
       config_file_path: "#{fixture_path}/ingest_config_examples/ingest_file_set_containing_file_with_external_url.yml",
-      source_files_path: "#{fixture_path}/sip_examples/ingest_file_set_containing_file_with_external_url"
+      sip_path: "#{fixture_path}/sip_examples/ingest_file_set_containing_file_with_external_url"
     )
     @runner.run!
   end

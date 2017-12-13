@@ -14,9 +14,7 @@ RSpec.describe "Ingesting an ActiveFedora model with missing metadata" do
   end
 
   let(:config_file_path) { "#{fixture_path}/ingest_config_examples/ingest_af_model_with_missing_metadata.yml" }
-  # Set a dummy source_files_path that we won't use.
-  let(:source_files_path) { fixture_path }
-  let(:runner) { Hyrax::Ingest::Runner.new(config_file_path: config_file_path, source_files_path: source_files_path) }
+  let(:runner) { Hyrax::Ingest::Runner.new(config_file_path: config_file_path) }
 
   context "with config from ingest_af_model_with_missing_metadata.yml" do
     before { runner.run! }
