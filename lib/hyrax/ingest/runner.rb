@@ -32,10 +32,28 @@ module Hyrax
         @errors ||= []
       end
 
+      # TODO: Does not yet return IDs of associated objects that were ingested
+      # as assocaited objects (i.e. objects that are nested under other
+      # objects in the ingest configuration). It only returns IDs for objects that
+      # are ingested per the top-level of ingest configuration.
+      def ingested_ids_by_type
+        {}.tap do |h|
+          ingesters.each do |ingester|
+            if ingester.respond_to? :af_model
+              h[ingester.af_model.class] ||= []
+              h[ingester.af_model.class] << ingester.af_model.id
+            end
+          end
+        end
+      end
+
       private
 
         def ingesters
           @ingesters ||= config.ingester_configs.map do |ingester_config|
+            # TODO: Better way to handle invalid config than throwing big
+            # error msgs from here.
+            raise Hyrax::Ingest::Errors::InvalidConfig.new('Ingester config must be a single key value pair, where the key is the name of the ingester, and the value is the ingester configuration.') unless ingester_config.respond_to? :keys
             ingester_name = ingester_config.keys.first
             ingester_options = ingester_config.values.first
             Hyrax::Ingest::Ingester.factory(ingester_name, ingester_options).tap do |ingester|

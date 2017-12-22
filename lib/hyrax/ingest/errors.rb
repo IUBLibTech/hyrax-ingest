@@ -12,8 +12,14 @@ module Hyrax
       end
 
       class NoSIPSpecified < Hyrax::Ingest::Error
-        def initialize(transformer_obj)
-          super("No SIP was specified. Set the sip with #{transformer_obj.class}#sip=")
+        def initialize(obj)
+          super("No SIP was specified.")
+        end
+      end
+
+      class NoSharedSIPSpecified < Hyrax::Ingest::Error
+        def initialize
+          super("No shared SIP was specified.")
         end
       end
 
@@ -30,8 +36,8 @@ module Hyrax
       end
 
       class FileNotFoundInSIP < Hyrax::Ingest::Error
-        def initialize(string_or_regexp)
-          super("No file matching #{string_or_regexp.inspect.to_s} was found in the SIP")
+        def initialize(sip_path, string_or_regexp)
+          super("No file matching #{string_or_regexp.inspect.to_s} was found in the SIP at path '#{sip_path}'")
         end
       end
 
@@ -83,6 +89,12 @@ module Hyrax
         end
       end
 
+      class RecordNotFound < Hyrax::Ingest::Error
+        def initialize(model_class_name, where_clause)
+          super("Record of type '#{model_class_name}' could not be found where #{where_clause}.")
+        end
+      end
+
       class AmbiguousFetchOptions < Hyrax::Ingest::Error
         def initialize(ambiguous_options)
           super("Could not determine which transformer class to use given the following options: #{Array(ambiguous_options).join(', ')}")
@@ -101,7 +113,12 @@ module Hyrax
         end
       end
 
-      class InvalidConfig < Hyrax::Ingest::Error; end
+      class InvalidConfig < Hyrax::Ingest::Error
+        def initialize(config_file_path, msg=nil)
+          message = ["Invalid configuration in '#{config_file_path}'.", msg.to_s].join("\n")
+          super(message)
+        end
+      end
 
       class InvalidIngesterClass < Hyrax::Ingest::Error
         def initialize(invalid_class)

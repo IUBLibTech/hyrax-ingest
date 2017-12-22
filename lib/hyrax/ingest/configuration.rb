@@ -31,16 +31,23 @@ module Hyrax
         def validate!
           validate_top_level_key!
           validate_ingester_configs_array!
+          validate_ingester_config_hashes!
         end
 
         # @raise [Hyrax::Ingest::Errors::InvalidConfig] When the top level
         #   'ingest' key is missing.
         def validate_top_level_key!
-          raise Hyrax::Ingest::Errors::InvalidConfig.new("Top-level key 'ingest' is missing.") unless config[:ingest]
+          raise Hyrax::Ingest::Errors::InvalidConfig.new(config_file_path, "Top-level key 'ingest' is missing.") unless config[:ingest]
         end
 
         def validate_ingester_configs_array!
-          raise Hyrax::Ingest::Errors::InvalidConfig.new("Value under top-level 'ingest' key must be an array.") unless config[:ingest].respond_to?(:each)
+          raise Hyrax::Ingest::Errors::InvalidConfig.new(config_file_path, "Value under top-level 'ingest' key must be an array containing the configuration for each ingester you want to use.") unless config[:ingest].respond_to?(:each)
+        end
+
+        def validate_ingester_config_hashes!
+          config[:ingest].each do |ingest_config|
+            raise Hyrax::Ingest::Errors::InvalidConfig.new(config_file_path, "Each ingester configuration must be a single key-value pair, where the key is the type of ingester, and the value is a hash containing the configuration for the ingester. But a #{ingester_config.class} was found instead.") unless ingest_config.respond_to? :keys
+          end
         end
     end
   end
