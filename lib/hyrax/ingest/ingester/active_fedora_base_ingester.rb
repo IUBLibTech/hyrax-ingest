@@ -35,7 +35,6 @@ module Hyrax
         protected
 
           def save_model!(continue_if_invalid: true)
-            af_model.instance_eval { save! }
             af_model.save!
             af_model
           rescue ActiveFedora::RecordInvalid => e
@@ -60,7 +59,9 @@ module Hyrax
 
           def new_or_existing_af_model
             if where_clause
-              af_model_class.where(where_clause).first
+              af_model_class.where(where_clause).first.tap do |found_record|
+                raise Hyrax::Ingest::Errors::RecordNotFound.new(af_model_class, where_clause) unless found_record
+              end
             else
               af_model_class.new
             end
@@ -103,7 +104,12 @@ module Hyrax
             fetcher_class_options = fetcher_config.values.first
             Hyrax::Ingest::Fetcher.factory(fetcher_class_name, fetcher_class_options).tap do |fetcher|
               if fetcher.respond_to?(:sip=)
-                fetcher.sip = use_shared_sip?(fetcher_config[fetcher_class_name]) ? shared_sip : sip
+                fetcher.sip = if use_shared_sip?(fetcher_config[fetcher_class_name])
+                  raise Hyrax::Ingest::Errors::NoSharedSIPSpecified unless shared_sip
+                  shared_sip
+                else
+                  sip
+                end
               end
               fetcher.iteration = iteration if fetcher.respond_to? :iteration=
             end

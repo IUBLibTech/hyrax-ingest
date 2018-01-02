@@ -22,14 +22,44 @@ module Hyrax
         report.batch_ingest_complete(runners.count)
       end
 
+      # Returns an array containing the IDs of new or updated records.
+      # Currently only returns the IDs for ActiveFedora records (or
+      # subclasses) that are specified at the top level (i.e. not nested) of
+      # the ingest configuration.
+      # @return [Array] list of IDs
+      def ingested_ids
+        ingested_ids_by_type.flatten
+      end
+
+      # Returns an hash containing the IDs of new or updated records, keyed by
+      # the model class by which they were saved.
+      # Example:
+      #   { FileSet => ['123', '456'], Work => ['789'] }
+      # Currently only returns the IDs for ActiveFedora records (or
+      # subclasses) that are specified at the top level (i.e. not nested) of
+      # the ingest configuration.
+      # @return [Hash] IDs keyed by the model class by which they were saved.
+      def ingested_ids_by_type
+        {}.tap do |h|
+          runners.each do |runner|
+            runner.ingested_ids_by_type.each do |type, ids|
+              h[type] ||= []
+              h[type] += ids
+              h[type].uniq!
+            end
+          end
+        end
+      end
+
       private
 
         def iterations
-          unless @iterations.nil?
+          # Return @iterations.to_i if it's not nil and not empty
+          unless @iterations.nil? || @iterations.to_s.empty?
             @iterations
           else
             [1, @sip_paths.count].max
-          end
+          end.to_i
         end
 
         def runners

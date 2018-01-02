@@ -32,7 +32,7 @@ module Hyrax
       # @return [File] The file from the SIP that matches the param.
       def find_file(filename)
         file = find_file_by_regex(filename) || find_file_by_name(filename)
-        raise Hyrax::Ingest::Errors::FileNotFoundInSIP.new(filename) unless file
+        raise Hyrax::Ingest::Errors::FileNotFoundInSIP.new(path, filename) unless file
         File.new(file.path)
       end
 
@@ -70,13 +70,6 @@ module Hyrax
         def find_file_by_name(filename)
           files.find { |file| File.basename(file) == filename }
         end
-
-        # @param [String, Regexp] str The string to test and see if it is a regex.
-        # @return [Boolean] True param begins and ends in a forward slash.
-        def is_a_regex?(str)
-          filename.to_s[0] == '/' && filename.to_s[-1] == '/'
-        end
-
 
         # @return Array An Array containing the one and only file pointed to by #path
         def single_file
