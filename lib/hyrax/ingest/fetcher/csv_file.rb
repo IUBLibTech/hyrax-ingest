@@ -32,7 +32,7 @@ module Hyrax
         private
 
           def roo
-            @roo ||= Roo::CSV.new(sip.find_file(filename))
+            @roo ||= Roo::CSV.new(sip.find_file_path(filename))
           end
 
           def cell_value
@@ -43,7 +43,7 @@ module Hyrax
           def column_number
             @column_number ||= column_number_from_header || specific_column_number
             # TODO: custom error
-            raise ArgumentError, "Value for column: option must be a number or the keyword 'next'; #{row} was given." if @column_number.nil?
+            raise ArgumentError, "Value for column: option must be a number or a column header; '#{column}' was given." if @column_number.nil?
             @column_number
           end
 
