@@ -6,6 +6,8 @@ require 'hyrax/ingest/has_shared_sip'
 require 'hyrax/ingest/has_iteration'
 require 'hyrax/ingest/has_logger'
 require 'hyrax/ingest/has_report'
+require 'hyrax/ingest/has_depositor'
+
 
 module Hyrax
   module Ingest
@@ -17,6 +19,7 @@ module Hyrax
       include HasIteration
       include HasReport
       include HasLogger
+      include HasDepositor
 
       attr_reader :config
 
@@ -34,10 +37,11 @@ module Hyrax
         report.stat[:datetime_completed] ||= DateTime.now
       end
 
-      def initialize(config_file_path:, sip_path: nil, shared_sip_path: nil, iteration: 0)
+      def initialize(config_file_path:, sip_path: nil, shared_sip_path: nil, iteration: 0, depositor: nil)
         self.sip = SIP.new(path: sip_path) if sip_path
         self.shared_sip = shared_sip_path != nil ? SIP.new(path: shared_sip_path) : nil
         self.iteration = iteration.to_i
+        self.depositor = depositor
         @config = Hyrax::Ingest::Configuration.new(config_file_path: config_file_path)
       end
 
@@ -90,6 +94,7 @@ module Hyrax
               ingester.iteration = iteration if ingester.respond_to? :iteration=
               ingester.logger = logger if ingester.respond_to? :logger=
               ingester.report = report if ingester.respond_to? :report=
+              ingester.depositor = depositor if ingester.respond_to? :depositor=
             end
           end
         end

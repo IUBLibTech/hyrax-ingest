@@ -17,6 +17,7 @@ module Hyrax
         def run!
           assign_properties!
           assign_related_file_set_properties!
+          apply_depositor_metadata!
           save_model!
           assign_file_sets_to_work!
           # return the new instance of the ActiveFedora model
@@ -24,6 +25,10 @@ module Hyrax
         end
 
         private
+
+          def apply_depositor_metadata!
+            af_model.apply_depositor_metadata(depositor) if depositor
+          end
 
           def assign_related_file_set_properties!
             file_set_ingesters.each { |file_set_ingester| file_set_ingester.assign_properties! }
