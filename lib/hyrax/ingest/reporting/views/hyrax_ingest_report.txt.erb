@@ -1,0 +1,21 @@
+=============================================
+======== Hyrax Ingest Report Summary ========
+=============================================
+
+Ingest configuration file:      <%= stat[:config_file_path] %>
+Started at:                     <%= stat[:datetime_started] %>
+Completed at:                   <%= stat[:datetime_completed] %>
+Batch size:                     <%= stat[:batch_size] %>
+Total # of source files used:   <%= stat[:count, :files] %>
+Records ingested:               <%= stat[:count, :models_saved] %>
+Records failed:                 <%= stat[:count, :models_failed] %>
+
+<% if stat[:count, :xml_files_missing_required_values] %>
+XML Files missing required values...
+  <% stat[:xml_files_missing_required_values].each do |filename, xpaths| %>
+  Values missing from: <%= filename %>
+    <% xpaths.each do |xpath| %>
+    - <%= xpath %>
+    <% end %>
+  <% end %>
+<% end %>

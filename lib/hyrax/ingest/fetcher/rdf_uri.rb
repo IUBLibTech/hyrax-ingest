@@ -6,12 +6,14 @@ module Hyrax
       class RdfUri < Base
         attr_reader :uri_str
 
-        def initialize(uri_str='')
-          @uri_str = uri_str
+        def initialize(options={})
+          options = { uri_str: options } unless options.is_a? Hash
+          @uri_str = options.delete(:uri_str)
+          super
         end
 
         def fetch
-          ::RDF::URI.new(uri_str)
+          @fetched_value ||= ::RDF::URI.new(uri_str)
         end
       end
     end

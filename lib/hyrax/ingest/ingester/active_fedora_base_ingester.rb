@@ -9,8 +9,21 @@ module Hyrax
   module Ingest
     module Ingester
       class ActiveFedoraBaseIngester < Base
+        include Interloper
 
         attr_reader :af_model_class_name, :properties_config, :update_params, :shared_sip
+
+        before(:save_model!) { logger.info "Saving #{af_model_class_name}" }
+
+        after(:save_model!) do
+          if af_model.persisted?
+            logger.info "#{af_model_class_name} saved!"
+            report.stat[:models_saved] << af_model
+          else
+            logger.error "Validation Error(s): " + af_model.errors.map {|field, msg| "'#{field}' #{msg}" }.join('; ')
+            report.stat[:models_failed] << af_model
+          end
+        end
 
         def initialize(config={})
           raise ArgumentError, "Option :af_model_class_name is required" unless config.key?(:af_model_class_name)
@@ -20,12 +33,8 @@ module Hyrax
         end
 
         def run!
-          report.model_ingest_started(af_model_class_name)
           assign_properties!
           save_model!
-          report.model_ingest_complete(af_model_class_name)
-          # return the new instance of the ActiveFedora model
-          af_model
         end
 
         def af_model
@@ -38,7 +47,6 @@ module Hyrax
             af_model.save!
             af_model
           rescue ActiveFedora::RecordInvalid => e
-            report.model_ingest_failed_validation(af_model_class_name, e.message)
             raise e unless continue_if_invalid
             false
           end
@@ -112,6 +120,8 @@ module Hyrax
                 end
               end
               fetcher.iteration = iteration if fetcher.respond_to? :iteration=
+              fetcher.logger = logger if fetcher.respond_to? :logger=
+              fetcher.report = report if fetcher.respond_to? :report=
             end
           end
 

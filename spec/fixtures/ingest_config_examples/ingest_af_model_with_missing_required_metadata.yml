@@ -1,0 +1,22 @@
+---
+ingest:
+  - ActiveFedoraBase:
+      af_model_class_name: MyModel
+      properties:
+        - rdf_predicate: http://example.org#title
+          from:
+            Literal:
+              value: # intentionally no value here
+              required: true
+        - rdf_predicate: http://example.org#title
+          from:
+            XMLFile:
+              filename: metadata.xml
+              xpath: path/to/no_value
+              required: true
+        - rdf_predicate: http://example.org#title
+          from:
+            XMLFile:
+              filename: metadata.xml
+              xpath: path/to/no_value2
+              required: true

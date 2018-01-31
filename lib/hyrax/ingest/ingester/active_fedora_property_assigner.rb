@@ -1,13 +1,21 @@
 require 'hyrax/ingest/fetcher/base'
 require 'hyrax/ingest/errors'
-require 'hyrax/ingest/reporting'
 require 'active_fedora'
+require 'hyrax/ingest/has_report'
+require 'hyrax/ingest/has_logger'
 
 module Hyrax
   module Ingest
     module Ingester
       class ActiveFedoraPropertyAssigner
-        include Reporting
+        include Interloper
+        include HasReport
+        include HasLogger
+
+        after(:assign!) do
+          logger.info "#{@fetched_and_transformed_value} assigned to property '#{property_name}' with rdf predicate '#{rdf_predicate}'"
+        end
+
         attr_reader :rdf_predicate, :af_model, :fetcher, :transformer
 
         def initialize(options={})
@@ -20,16 +28,26 @@ module Hyrax
         end
 
         def assign!
-          fetched_value = fetcher.fetch
-          fetched_value = transformer.transform(fetched_value) if transformer
-          report.value_assigned_to_property(fetched_value, property_name, rdf_predicate)
-          af_model.set_value(property_name, fetched_value)
+          af_model.set_value(property_name, fetched_and_transformed_value)
         rescue ::ActiveTriples::Relation::ValueError => e
           # Rethrow ActiveTriples::Relation::ValueError as something more specific to ingest.
           raise Hyrax::Ingest::Errors::InvalidActiveFedoraPropertyValue.new(fetched_value, property_name, rdf_predicate)
         end
 
         private
+
+          def fetched_and_transformed_value
+            @fetched_and_transformed_value ||= if transformer
+              transformer.transform(fetched_value)
+            else
+              fetched_value
+            end
+          end
+
+          def fetched_value
+            @fetched_value ||= fetcher.fetch
+          end
+
           # Performs a lookup of property name by RDF predicate.
           # @return [Symbol] The symbol representing the accessor for the
           #   property that matches the RDF predicate stored in the

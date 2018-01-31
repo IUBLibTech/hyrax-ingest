@@ -4,21 +4,39 @@ require 'hyrax/ingest/reporting'
 require 'hyrax/ingest/has_sip'
 require 'hyrax/ingest/has_shared_sip'
 require 'hyrax/ingest/has_iteration'
+require 'hyrax/ingest/has_logger'
+require 'hyrax/ingest/has_report'
 
 module Hyrax
   module Ingest
     class Runner
       include Reporting
-
-      attr_reader :config
-
+      include Interloper
       include HasSIP
       include HasSharedSIP
       include HasIteration
+      include HasReport
+      include HasLogger
 
-      def initialize(config_file_path:, sip_path: nil, shared_file_path: nil, iteration: 0)
+      attr_reader :config
+
+      before(:run!) do
+        logger.info "Ingest iteration #{iteration+1} started."
+        report.stat[:datetime_started] ||= DateTime.now
+        report.stat[:batch_size] ||= 1
+        report.stat[:files] += sip.file_paths if sip
+        report.stat[:files] += shared_sip.file_paths if shared_sip
+        report.stat[:config_file_path] = config.config_file_path
+      end
+
+      after(:run!) do
+        logger.info "Ingest iteration #{iteration+1} complete."
+        report.stat[:datetime_completed] ||= DateTime.now
+      end
+
+      def initialize(config_file_path:, sip_path: nil, shared_sip_path: nil, iteration: 0)
         self.sip = SIP.new(path: sip_path) if sip_path
-        self.shared_sip = shared_file_path != nil ? SIP.new(path: shared_file_path) : nil
+        self.shared_sip = shared_sip_path != nil ? SIP.new(path: shared_sip_path) : nil
         self.iteration = iteration.to_i
         @config = Hyrax::Ingest::Configuration.new(config_file_path: config_file_path)
       end
@@ -27,8 +45,19 @@ module Hyrax
         ingesters.collect { |ingester| ingester.run! }
       end
 
-      def errors
-        @errors ||= []
+      # TODO: Does not yet return IDs of associated objects that were ingested
+      # as assocaited objects (i.e. objects that are nested under other
+      # objects in the ingest configuration). It only returns IDs for objects that
+      # are ingested per the top-level of ingest configuration.
+      def ingested_ids_by_type
+        {}.tap do |h|
+          ingesters.each do |ingester|
+            if ingester.respond_to? :af_model
+              h[ingester.af_model.class] ||= []
+              h[ingester.af_model.class] << ingester.af_model.id
+            end
+          end
+        end
       end
 
       # TODO: Does not yet return IDs of associated objects that were ingested
@@ -59,6 +88,8 @@ module Hyrax
               ingester.sip = sip if ingester.respond_to? :sip=
               ingester.shared_sip = shared_sip if ingester.respond_to? :shared_sip=
               ingester.iteration = iteration if ingester.respond_to? :iteration=
+              ingester.logger = logger if ingester.respond_to? :logger=
+              ingester.report = report if ingester.respond_to? :report=
             end
           end
         end

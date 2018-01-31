@@ -19,6 +19,6 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    File.delete(Hyrax::Ingest::Reporting.config[:filename]) if File.exist? Hyrax::Ingest::Reporting.config[:filename]
+    # File.delete(Hyrax::Ingest::Reporting.config[:filename]) if File.exist? Hyrax::Ingest::Reporting.config[:filename]
   end
 end

@@ -35,6 +35,17 @@ RSpec.describe Hyrax::Ingest::Fetcher::XMLFile do
         expect(fetcher.fetch).to eq ['"Brain" Cam 1 Tape 1']
       end
     end
+
+    context 'when the fetched value is flagged as required, but is missing' do
+      let(:options) { { filename: 'MDPI_40000000542243_pod.xml', xpath: '/does/not/exist', required: true} }
+      let(:fetcher) { described_class.new(options) }
+      before { fetcher.sip = sip }
+
+      it 'logs the missing value' do
+        expect(fetcher).to receive(:report_missing_required_value).exactly(1).times
+        fetcher.fetch
+      end
+    end
   end
 
   describe '.new' do

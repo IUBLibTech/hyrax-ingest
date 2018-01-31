@@ -1,7 +1,4 @@
 require 'hyrax/ingest/engine'
-
-# TODO: require pry for testing only.
-require 'pry'
 require 'hyrax'
 
 module Hyrax

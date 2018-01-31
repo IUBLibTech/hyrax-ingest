@@ -13,10 +13,6 @@ RSpec.describe "Ingesting a Work from XML" do
   end
 
   context "with config from ingest_work_from_xml.yml" do
-    it "does not have any errors" do
-      expect(@runner.errors).to be_empty
-    end
-
     it 'ingests the Work with metadata' do
       expect(ExampleWork.where(title: "Example Work").count).to eq 1
     end

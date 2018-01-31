@@ -13,10 +13,6 @@ RSpec.describe "Ingesting a Work from YAML" do
       @runner.run!
     end
 
-    it "does not have any errors" do
-      expect(@runner.errors).to be_empty
-    end
-
     it 'ingests the Work with metadata' do
       expect(ExampleWork.where(title: "Wells Documentary, Vision of Herman B Wells").count).to eq 1
     end

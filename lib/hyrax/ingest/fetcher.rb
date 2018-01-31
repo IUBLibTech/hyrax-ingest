@@ -24,11 +24,12 @@ module Hyrax
           end
         end
 
-        # @param [Hash] options The key is the fetcher class name
+        # @param [string] options The key is the fetcher class name
         #   and the value is the hash of options to pass to the constructor of the fetcher
         #   class.
         # @return An instance of the fetcher class.
         def factory(class_name, options={})
+          options ||= {}
           find_class_by_name(class_name).new(options)
         end
 

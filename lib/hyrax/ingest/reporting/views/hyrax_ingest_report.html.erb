@@ -1,0 +1,65 @@
+<style>
+
+dl.inline dd {
+  display: inline;
+  margin: 0;
+}
+
+dl.inline dd:after {
+  display: block;
+  content: '';
+}
+
+dl.inline dt {
+  display: inline-block;
+  /*min-width: 100px;*/
+  width: 200px;
+}
+
+h3 {
+  margin-left: 20px;
+}
+
+</style>
+
+<h1>Hyrax Ingest Report Summary</h1>
+
+<dl class="inline">
+  <dt>Ingest configuration file:</dt>
+  <dd><%= stat[:config_file_path] %></dd>
+  <dt>Started at:</dt>
+  <dd><%= stat[:datetime_started] %></dd>
+  <dt>Completed at:</dt>
+  <dd><%= stat[:datetime_completed] %></dd>
+  <dt>Batch size:</dt>
+  <dd><%= stat[:batch_size] %></dd>
+  <dt>Total # of source files used:</dt>
+  <dd><%= stat[:count, :files] %></dd>
+  <dt>Records ingested:</dt>
+  <dd><%= stat[:count, :models_saved] %></dd>
+  <dt>Records failed:</dt>
+  <dd><%= stat[:count, :models_failed] %></dd>
+</dl>
+
+<h2>Missing Required Values: <%= stat[:total_missing_required_values] %> total</h2>
+<% if stat[:total_missing_required_values] > 0 %>
+  <% stat[:missing_required_values].each do |fetcher_class, list_of_param_hashes| %>
+    <% fetcher_class_short_name = fetcher_class.to_s.gsub(/.*\:\:/, '') %>
+    <h3>Missing required values from <%= fetcher_class_short_name %>: <%= list_of_param_hashes.count %></h3>
+    <ol>
+      <% list_of_param_hashes.each do |param_hash| %>
+        <li>
+          <% if param_hash.empty? %>
+            <em>No additional information</em>
+          <% else %>
+            <dl class="inline">
+              <% param_hash.each do |key, val| %>
+                <dt><%= key%>:</dt><dd><%= val %></dd>
+              <% end %>
+            </dl>
+          <% end %>
+        </li>
+      <% end%>
+    </ol>
+  <% end %>
+<% end %>

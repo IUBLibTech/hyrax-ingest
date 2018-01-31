@@ -16,10 +16,6 @@ RSpec.describe "Ingesting a Work containing a FileSet" do
 
     let(:ingested_work) { ExampleWork.where(title: "ExampleWork Title").first }
 
-    it "does not have any errors" do
-      expect(@runner.errors).to be_empty
-    end
-
     it 'saves the FileSet as belonging to the Work' do
       expect(ingested_work.file_sets.size).to eq 1
     end
