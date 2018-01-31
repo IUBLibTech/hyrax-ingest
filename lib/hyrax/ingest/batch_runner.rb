@@ -1,6 +1,7 @@
 require 'hyrax/ingest/runner'
 require 'hyrax/ingest/has_report'
 require 'hyrax/ingest/has_logger'
+require 'hyrax/ingest/has_depositor'
 require 'interloper'
 
 module Hyrax
@@ -8,6 +9,7 @@ module Hyrax
     class BatchRunner
       include HasReport
       include HasLogger
+      include HasDepositor
       include Interloper
 
       # Report before and after a batch is ingested.
@@ -24,11 +26,12 @@ module Hyrax
 
       attr_reader :sip_paths
 
-      def initialize(config_file_path:, sip_paths: [], shared_sip_path: nil, iterations: nil)
+      def initialize(config_file_path:, sip_paths: [], shared_sip_path: nil, iterations: nil, depositor: nil)
         @sip_paths = sip_paths
         @shared_sip_path = shared_sip_path
         @config_file_path = config_file_path
         @iterations = iterations
+        self.depositor = depositor
       end
 
       def run!
@@ -106,7 +109,7 @@ module Hyrax
 
         def runners
           @runners ||= (0...iterations).map do |iteration|
-            Hyrax::Ingest::Runner.new(config_file_path: @config_file_path, sip_path: @sip_paths[iteration], shared_sip_path: @shared_sip_path, iteration: iteration)
+            Hyrax::Ingest::Runner.new(config_file_path: @config_file_path, sip_path: @sip_paths[iteration], shared_sip_path: @shared_sip_path, iteration: iteration, depositor: depositor)
           end
         end
     end

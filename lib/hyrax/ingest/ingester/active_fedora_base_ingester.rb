@@ -30,6 +30,7 @@ module Hyrax
           @af_model_class_name = config.delete(:af_model_class_name).to_s
           @properties_config = config.delete(:properties) || []
           @update_params = config.delete(:update)
+          super(config)
         end
 
         def run!

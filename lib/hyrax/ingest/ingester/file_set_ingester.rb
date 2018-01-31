@@ -16,6 +16,7 @@ module Hyrax
 
         def run!
           assign_properties!
+          apply_depositor_metadata!
           save_model!
           ingest_preservation_events!
           add_files_to_file_set!
@@ -24,6 +25,10 @@ module Hyrax
         end
 
         private
+
+          def apply_depositor_metadata!
+            af_model.apply_depositor_metadata(depositor) if depositor
+          end
 
           def add_files_to_file_set!
             file_ingesters.each do |file_ingester|
