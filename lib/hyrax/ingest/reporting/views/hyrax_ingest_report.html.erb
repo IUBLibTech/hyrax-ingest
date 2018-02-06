@@ -24,6 +24,18 @@ h3 {
 
 <h1>Hyrax Ingest Report Summary</h1>
 
+<% if failed? %>
+  <h2><strong>Ingest Failed!<strong></h2>
+  <p>The following errors caused the ingest to fail:</p>
+  <ol>
+    <% errors.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ol>
+<% end %>
+
+
+<h2>Ingest Details:</h2>
 <dl class="inline">
   <dt>Ingest configuration file:</dt>
   <dd><%= stat[:config_file_path] %></dd>
