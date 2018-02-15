@@ -1,0 +1,8 @@
+---
+ingest:
+  - ActiveFedoraBase:
+      af_model_class_name: TestModel
+      properties:
+        - rdf_predicate: 'http://example.org#title'
+          from:
+            Literal: 'sample title'

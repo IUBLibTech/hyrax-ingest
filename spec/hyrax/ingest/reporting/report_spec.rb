@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'hyrax/ingest/reporting'
 require 'hyrax/ingest/reporting/report'
+require 'support/create_tempfile_helper'
 
 describe Hyrax::Ingest::Reporting::Report do
   let(:subject) { described_class.new }
@@ -17,13 +18,6 @@ describe Hyrax::Ingest::Reporting::Report do
 
     it 'renders the default template, if no template is passed' do
       expect(subject.render).to eq 'default template, foo = 123'
-    end
-  end
-
-  def create_tempfile(content)
-    Tempfile.new.tap do |file|
-      file.write content
-      file.close
     end
   end
 end

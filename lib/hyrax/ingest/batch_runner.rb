@@ -22,6 +22,7 @@ module Hyrax
       after(:run!) do
         logger.info "Batch ingest complete."
         report.stat[:datetime_completed] = DateTime.now
+        report.write_to_file
       end
 
       attr_reader :sip_paths
@@ -36,6 +37,16 @@ module Hyrax
 
       def run!
         runners.each { |runner| runner.run! }
+      rescue StandardError => error
+        # TODO: move to callback, but :rescue hook doesn't exist yet in
+        # Interloper gem.
+        report.stat[:datetime_completed] = DateTime.now
+        report.failed_with error
+        raise error
+      ensure
+        # TODO: move to callback, but :ensure hook doesn't exist yet in
+        # Interloper gem.
+        report.write_to_file
       end
 
       # Returns an array containing the IDs of new or updated records.
@@ -109,7 +120,9 @@ module Hyrax
 
         def runners
           @runners ||= (0...iterations).map do |iteration|
-            Hyrax::Ingest::Runner.new(config_file_path: @config_file_path, sip_path: @sip_paths[iteration], shared_sip_path: @shared_sip_path, iteration: iteration, depositor: depositor)
+            Hyrax::Ingest::Runner.new(config_file_path: @config_file_path, sip_path: @sip_paths[iteration], shared_sip_path: @shared_sip_path, iteration: iteration, depositor: depositor).tap do |runner|
+              runner.report = report if runner.respond_to? :report=
+            end
           end
         end
     end

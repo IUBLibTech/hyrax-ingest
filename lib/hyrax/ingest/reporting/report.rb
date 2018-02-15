@@ -61,6 +61,18 @@ module Hyrax
           filename ||= Reporting.config.default_output_file
           File.write(filename, render(template_path: template_path))
         end
+
+        def failed_with(error)
+          errors << error
+        end
+
+        def errors
+          @errors ||= []
+        end
+
+        def failed?
+          !errors.empty?
+        end
       end
     end
   end
